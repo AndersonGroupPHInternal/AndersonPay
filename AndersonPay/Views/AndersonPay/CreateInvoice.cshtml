@@ -1,4 +1,4 @@
-﻿@model AndersonPay.Models.invoice
+@model AndersonPay.Models.invoice
 @using System.Data;
 @using System.Data.Entity;
 @using AndersonPay.Models.InvoiceContext;
@@ -19,14 +19,12 @@
 <script type="text/javascript" src="~/Content/assets/js/plugins/pickers/pickadate/picker.date.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/plugins/pickers/pickadate/legacy.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/plugins/forms/selects/bootstrap_select.min.js"></script>
-<script type="text/javascript" src="~/Content/assets/js/plugins/buttons/ladda.min.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/views/form_bootstrap_select.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/views/createinvoice.js"></script>
 <script type="text/javascript" src="~/Content/assets/js/views/picker_date.js"></script>
+<script src="~/Scripts/Angular/app.module.js"></script>
+<script src="~/Scripts/Angular/Controller/AndersonPayController.js"></script>
 
-<script>
-
-</script>
 <!-- /Other JS files -->
 <!-- Content -->
 <div class="content-wrapper">
@@ -189,7 +187,7 @@
                                                         </div>
                                                     </div>
 
-
+                                                    
                                                     <!--Due Date -->
                                                     <div class="col-md-5">
                                                         <label>Due Date:</label>
@@ -232,113 +230,119 @@
                                                         @Html.ValidationMessageFor(model => model.ExpiringPeriod, "", new { @class = "text-danger" })
                                                     </div>
                                                 </div>
-                                          
-                                                <div class="col-md-12" ng-controller="AndersonPayController as model" ng-init="model.Initialise('@ViewBag.TypeOfServices')"><br /><br />
+                                                                                      
+                                                <div class="col-md-12" ng-controller="AndersonPayController as model" ng-init="model.Initialise()"><br /><br />
                                                     <!-- Services -->
                                                     <div class="container col-md-4" style="width:100%">
-                                                        <table   class="table table-bordered table-hover" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th width="5%" style="display:none">Index</th>
-                                                                    <th width="20%">Type of Service</th>
-                                                                    <th width="25%">Description</th>
-                                                                    <th width="25%">Rate</th>
-                                                                    <th width="25%">Quantity</th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr ng-repeat="invoiceService in model.InvoiceServices track by $index">
-                                                                    <td style="display:none">
-                                                                        {{$index}}
-                                                                        <input type="hidden"  value="{{invoiceService.TypeOfService.typeofserviceId}}"/>
-                                                                    </td>
-                                                                    <td>
-                                                                        @*@Html.DropDownList("TypeOfService", null, "", new { @class = "select", @data_placeholder = "Services" })*@
-                                                                      <select class="form-control" ng-model="invoiceService.TypeOfService" ng-options="typeOfServices.NameOfService for typeOfServices in model.TypeOfServices" placeholder ="Type of Service"></select>
-                                                                    @*<i role="button" data-toggle="modal" data-target="#myModal" href="@Url.Action("MultipleService", "AndersonPay" )" class="glyphicon glyphicon-plus-sign"></i> Add Service*@
-                                                                    @Html.ValidationMessageFor(model => model.TypeOfService, "", new { @class = "text-danger" })
-                                                                </td>
+    <table class="table table-bordered" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
+        <thead>
+            <tr>
+                <th width="5%" style="display:none">Index</th>
+                <th width="20%">Type of Service</th>
+                <th width="25%">Description</th>
+                <th width="20%">Rate</th>
+                <th width="20%">Quantity</th>
+                <th width="20%">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="invoiceService in model.InvoiceServices track by $index">
+                <td style="display:none">
+                    {{$index}}
+                    <input type="hidden" name="invoice.multipleServices[{{$index}}].MultipleServiceId" value="{{invoiceService.TypeOfService.typeofserviceId}}" />
+                </td>
 
-                                                                <td>
-                                                                  
-                                                                    
-                                                                    @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter a new Description" } })*@
-                                                                    <input type="text" class="form-control" name="Description"  ng-model="invoiceService.TypeOfService.ServiceDescription" placeholder="Service Description" value="{{ServiceDescription}}">
-                                                                </td>
+                <!--Type of Service-->
+                <td>
+                    @*@Html.DropDownList("TypeOfService", null, "", new { @class = "select", @data_placeholder = "Services" })*@
+                    <select class="form-control" name="invoice.multipleServices[{{$index}}].NameOfService" ng-model="invoiceService.TypeOfService" ng-options="typeOfServices.NameOfService for typeOfServices in model.TypeOfServices" placeholder="Type of Service"></select>
+                    @*<i role="button" data-toggle="modal" data-target="#myModal" href="@Url.Action("MultipleService", "AndersonPay" )" class="glyphicon glyphicon-plus-sign"></i> Add Service*@
+                    @Html.ValidationMessageFor(model => model.TypeOfService, "", new { @class = "text-danger" })
+                </td>
 
-                                                                <!-- Rate -->
-                                                                <td>
-                                                                    @*@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rate" } })*@
-                                                                    <input type="number" class="form-control" name="Rate"  value="{{Rate}}" placeholder = "0.00"  />
-                                                                    @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger", })
+                <td>
+                 
+                <!--Description-->
+                    @*@Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter a new Description" } })*@
+                    <input type="text" class="form-control" name="invoice.multipleServices[{{$index}}].ServiceDescription" ng-model="invoiceService.TypeOfService.ServiceDescription" placeholder="Service Description" value="{{ServiceDescription}}">
+                </td>
 
-                                                                </td>
-                                                                <!-- Quantity -->
-                                                                <td>
-                                                                    @*@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity" } })*@
-                                                                    <input type="number" class="form-control" name="Quantity" value={{Quantity}}  placeholder = "0"/>
-                                                                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger", })
-                                                                </td>
-                                                                    <td><button type="button" ng-click= "model.deleteRow($index)" class="btn" style="float:right">Remove</button></td>
-                                                                </tr>
-                                                        </table>
-                                                        <br/>
-                                                       
-                                                        <button type="button" ng-click="model.CreateInvoiceService()" class="btn btn-info" style="float:right">Add Service</button>
-                                                        
-                                                        </div>
-                                                    </div>
+                <!-- Rate -->
+                <td>
+                    @*@Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Rate" } })*@
+                    <input type="number" name="invoice.multipleServices[{{$index}}].ServiceRate" ng-model="invoiceService.Rate" class="form-control" placeholder="0.00" />
+                    @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger"})
+                </td>
 
-                                                    <!-- Currency -->
-                                                    <div class="col-md-6"><br /><br />
-                                                        <div class="form-group form-group-material">
-                                                            <label>Currency: </label>
-                                                            @Html.DropDownList("Currency", new List<SelectListItem>
+                <!-- Quantity -->
+                <td>
+                    @*@Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @placeholder = "Quantity" } })*@
+                    <input type="number" class="form-control" name="invoice.multipleServices[{{$index}}].ServiceQuantity" ng-model="invoiceService.Quantity" placeholder="0" />
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger", })
+                </td>
+
+                <!--Subtotal-->
+                <td ng-model="invoiceService.subtotal">
+                    {{invoiceService.Quantity * invoiceService.Rate}}
+                </td>
+
+                <td><button type="button" ng-click="model.deleteRow($index)" class="btn btn-info glyphicon glyphicon-trash"></button></td>
+            </tr>
+
+                        <!--Tax and Total-->
+            <tr style="border:none">
+                <td style="border:none"></td>
+                <td style="border:none"></td>
+                <td style="border:none"></td>
+                <td style="border:none"></td>
+                <td style="border:none"></td>
+                <td style="border:none"></td>
+            </tr>
+                        <tr style="border:none">
+                            <td  style="border:none">
+                                <b>Currency: </b>
+                            </td>
+                            <td style="border:none">
+                                @Html.DropDownList("Currency", new List<SelectListItem>
                                                                 {
-                                                                        new SelectListItem {Text="($) US Dollar" ,Value = "Dollar"/*, Selected = true*/},
-                                                                        new SelectListItem {Text="(₱) Philippine Peso" ,Value = "Peso", Selected = true},
+                                                                        new SelectListItem {Text="($) US Dollar" ,Value = "Dollar"},
+                                                                        new SelectListItem {Text="(₱) Philippine Peso" ,Value = "Peso"},
                                                                         new SelectListItem {Text = "(£) UK Pound", Value = "UK Pounds" },
-                                                                }, "", new { @class = "bootstrap-select show-tick", @data_width = "46%" })
-                                                            @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
-                                                        </div>
-                                                    </div>
-
-
-                                                    <!-- VAT -->
-                                                    <div class="col-md-3"><br /><br />
-                                                        <div class="form-group form-group-material">
-                                                            <label>Sales Tax: </label>
-                                                            @Html.DropDownList("GovernmentTax", new List<SelectListItem>
+                                                                }, "", new { @class = "form-control", @data_width = "46%" })
+                                @Html.ValidationMessageFor(model => model.Currency, "", new { @class = "text-danger" })
+                            </td>
+                            <td style="border:none"></td>
+                            <td style="border:none"><b>Tax Percentage:</b></td>
+                            <td style="border:none" ng-model="invoiceService.total"><input type="number" class="form-control" placeholder="0" /></td>
+                            <td style="border:none"></td>
+                        </tr>
+      
+                        <tr style="border:none">
+                            <td style="border:none">
+                                <b>Tax Type: </b>
+                            </td>
+                            <td style="border:none">
+                                @Html.DropDownList("WithholdingTax", new List<SelectListItem>
                                                                 {
-                                                                        new SelectListItem {Text="0%" ,Value = "0", Selected = true},
-                                                                        new SelectListItem {Text="12%" ,Value = "12"},
-                                                                        
+                                                                        new SelectListItem {Text="Vatable" ,Value = "Vatable", },
+                                                                        new SelectListItem {Text="Withholding Tax" ,Value = "Withholding Tax", },
+                                                                        new SelectListItem {Text="Zero-Rated" ,Value = "Zero-Rated"},
+                                                                }, "", new { @class = "form-control", @data_width = "46%" })
+                                @Html.ValidationMessageFor(model => model.WithholdingTax, "", new { @class = "text-danger" })
+                            </td>
+                            <td style="border:none"></td>
+                            <td style="border:none"><b><span>Total:</span></b></td>
+                            <td style="border:none" ng-model="invoiceService.totalTax"><input type="number" class="form-control" placeholder="0" readonly ="readonly"/></td>
+                            <td style="border:none"></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <button type="button" ng-click="model.CreateInvoiceService()" class="btn btn-primary" style="float:right">Add Service</button>
+                    </div>
+                    </div>
 
-                                                                }, "", new { @class = "bootstrap-select show-tick", @data_width = "22%" })
-
-                                                
-                                                            </div>
-                                                        </div>                                       
-                                                  
-
-                                                <div class="col-md-3"><br /><br />
-                                                    <div class="form-group form-group-material">
-                                                        <label>Withholding Tax: </label>
-                                                        @Html.DropDownList("WithholdingTax", new List<SelectListItem>
-                                                                {
-                                                                        new SelectListItem {Text="0%" ,Value = "0", Selected = true},
-                                                                        new SelectListItem {Text="1%" ,Value = "1" },
-                                                                        new SelectListItem {Text = "2%", Value = "2" },
-                                                                        new SelectListItem {Text = "5%", Value = "5" },
-                                                                }, "", new { @class = "bootstrap-select show-tick", @data_width = "46%" })
-                                                        @Html.ValidationMessageFor(model => model.WithholdingTax, "", new { @class = "text-danger" })
-                                                    </div>
-
-                                                </div>
-
-
-                                                <!-- Comments -->
+                                              <!-- Comments -->
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="form-group form-group-material">
@@ -353,10 +357,10 @@
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <button type="submit" class="btn btn-primary btn-lg" name="Submit" value="Preview" href="@Url.Action("PreviewInvoice", "AndersonPay", new { invoice=Model})">
+                                    <button type="submit" class="btn btn-primary btn-lg" name="Preview" value="Preview" href="@Url.Action("PreviewInvoice", "AndersonPay", new { invoice=Model})">
                                         <i class="glyphicon glyphicon-eye-open"></i> Preview
                                     </button>
-                                    <button type="button" value="CreateInvoice" data-toggle="modal" data-target="#modal_h4" name="Submit" id=item.invoiceId class="btn btn-primary">Submit Invoice<i class="icon-arrow-right14 position-right"></i></button>
+                                    <button type="submit" value="CreateInvoice" data-toggle="modal" data-target="#modal_h4" name="Submit" id=item.invoiceId class="btn btn-primary">Submit Invoice<i class="icon-arrow-right14 position-right"></i></button>
                                     <!-- data-toggle="modal" data-target="#modal_h4" -->
                                 </div>
 
@@ -404,6 +408,3 @@
     </div>
 
 </div>
-
-
-@*JEV WAS HERE HAKHAK !!!*@
