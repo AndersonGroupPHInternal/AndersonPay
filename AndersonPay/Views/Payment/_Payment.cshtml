@@ -37,7 +37,7 @@
                         <input type="text" class="form-control" readonly="readonly" value="{{invoice.SINo}}{{invoice.InvoiceId}}" placeholder="Sales Invoice No.">
                     </td>
                     @*<td>
-                            <input type="text" class="form-control" readonly="readonly" value="">
+                       <input type="text" class="form-control" readonly="readonly" value="">
                     </td>*@
                     <td>
                         <input class="form-control" type="number" name="invoice.Invoices[{{$index}}].Payments" ng-model="invoice.Payment" placeholder="0.00" min="0">

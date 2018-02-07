@@ -18,7 +18,7 @@ namespace AndersonPayEntity
          Remove Display annotation
          Remove [HiddenInput(DisplayValue = true)] 
          Remove multipeServiceJSON
-             */
+         */
 
         public decimal AmountDue { get; set; }
        
@@ -28,9 +28,11 @@ namespace AndersonPayEntity
 
         public decimal Tax { get; set; }
         public string Currency { get; set; }
+
         [ForeignKey("Client")]
         public int ClientId { get; set; }
         public EClient Client { get; set; }
+
         public virtual ICollection<EService> Services { get; set; }
 
         public string Name { get; set; }

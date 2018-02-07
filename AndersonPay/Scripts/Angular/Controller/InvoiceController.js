@@ -71,19 +71,9 @@
         }
 
         function TryF(taxu) {
-            //console.log(vm.TryS);
-            //vm.TryS = 23;
-            //console.log(vm.TryS +"----");
-
-            //console.log(taxu);
-            //AmountDue(taxu);
-
-            //console.log(vm.Invoices);
-            //console.log(vm.TypeOfServices);
             console.log(vm.Services);
             console.log(vm.Invoices);
             vm.TryS = 10;
-            //console.log(vm.Clients);
         }
 
         function Initialise(invoiceId) {
@@ -96,9 +86,6 @@
             vm.InvoiceId = invoiceId;
             vm.Address = address;
             ReadForClients();
-            ReadCompanyBranch();
-            ReadForCurrency();
-            ReadForTaxType();
             vm.AmountDueValue = 21;
             ReadForService(invoiceId);
         }
@@ -248,36 +235,6 @@
         function CompanyBranch(BranchCode) {
             var BranchCode = "BCode";
             return BranchCode;
-        }
-
-        //Branch Location This should be a separate table
-        function ReadCompanyBranch() {
-            vm.CompanyBranches = [
-            { Address: "11/F Wynsum Corporate Plaza, #22 F. Ortigas Jr. Road Ortigas Center,Pasig City Philippines ", CompanyAddress: 'WYNSUM', SINo: 'WNSM-', TIN: '0001' },
-            { Address: "20/F Robinsons Cybergate Tower 3, Pioneer Street, Mandaluyong City, Pioneer St, Mandaluyong, Metro Manila", CompanyAddress: 'CYBERGATE 3', SINo: 'CG3-', TIN: '0002' },
-            { Address: "Ecotower Building Unit 1504, 32nd Street corner 9th avenue Bonifacio Global City, Taguig City Philippines ", CompanyAddress: 'ECOTOWER', SINo: 'ECT-', TIN: '0003' },
-
-            ];
-            var companyBranch = $filter('filter')(vm.CompanyBranches, { Address: vm.Address })[0];
-            if (companyBranch)
-                vm.CompanyBranch = companyBranch;
-        }
-
-        function ReadForTaxType() {
-            vm.TaxTypes = [
-                { Type: "VAT" },
-                { Type: "NON-VAT" },
-                { Type: "ZERO RATED" },
-            ];
-        }
-
-        //Currency
-        function ReadForCurrency() {
-            vm.CurrencyCode = [
-                { Code: "USD" },
-                { Code: "GBP" },
-                { Code: "PHP" },
-            ];
         }
 
         //PFD get data

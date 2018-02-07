@@ -189,7 +189,6 @@
         }
 
         function AmountDue(amountDue) {
-            //console.log(amountDue);
             return amountDue;
         }
 
