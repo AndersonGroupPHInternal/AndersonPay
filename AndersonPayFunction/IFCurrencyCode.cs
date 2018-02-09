@@ -12,6 +12,7 @@ namespace AndersonPayFunction
         #region READ
         CurrencyCode Read(int currencyCodeId);
         List<CurrencyCode> Read();
+        List<CurrencyCode> ReadCurrencyId(int currencyId);
         #endregion
 
         #region Update

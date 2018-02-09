@@ -30,8 +30,8 @@
                         <td><span ng-bind="client.Name"></span></td>
                         <td><span ng-bind="client.Address"></span></td>
                         <td><span ng-bind="client.RegistrationNo"></span></td>
-                        <td><span ng-bind="client.CurrencyCodes"></span></td>
-                        <td><span ng-bind="client.TaxTypes"></span></td>
+                        <td><span ng-bind="client.Currency.CurrencyCodes"></span></td>
+                        <td><span ng-bind="client.TaxType.TaxTypes"></span></td>
                         <td><span ng-bind="client.WithHoldingTax"></span></td>
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">
@@ -49,6 +49,4 @@
             </table>
         </div>
     </div>
-   
-
 </div>

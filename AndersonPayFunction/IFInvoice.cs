@@ -1,10 +1,5 @@
-﻿using AndersonPayEntity;
-using AndersonPayModel;
-using System;
+﻿using AndersonPayModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AndersonPayFunction
 {

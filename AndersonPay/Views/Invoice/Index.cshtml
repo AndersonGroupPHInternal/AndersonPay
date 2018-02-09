@@ -27,7 +27,7 @@
                     <tr class="clickableRow" ng-repeat="invoice in model.Invoices" ng-click="$event.originalEvent.dropdown || model.GoToUpdatePage(invoice.InvoiceId)">
                         <td><span ng-bind="invoice.CreatedDateNow"></span></td>
                         <td><span ng-bind="invoice.Name"></span></td>
-                        <td><span ng-bind="invoice.Currency"></span></td>
+                        <td><span ng-bind="invoice.Currency.CurrencyCodes"></span></td>
                         <td><span ng-bind="invoice.Tax| number:2"></span></td>
                         <td><span ng-bind="invoice.AmountDue| number:2"></span></td>
 

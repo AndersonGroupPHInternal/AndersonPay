@@ -11,8 +11,6 @@
         return {
             Read: Read,
             ReadId: ReadId,
-            ReadInvoiceForInvoiceinee: ReadInvoiceForInvoiceinee,
-            ReadInvoiceForPosition: ReadInvoiceForPosition,
             Delete: Delete,
             List: List
         }
@@ -33,27 +31,10 @@
             });
         }
 
-        function ReadInvoiceForInvoiceinee(invoiceineeId) {
-            return $http({
-                method: 'POST',
-                url: '/Invoice/ReadInvoiceForInvoiceinee/' + invoiceineeId,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-        }
-
-        function ReadInvoiceForPosition(positionId) {
-            return $http({
-                method: 'POST',
-                url: '/Invoice/ReadInvoiceForPosition/' + positionId,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-        }
-
         function Delete(invoiceId) {
             return $http({
                 method: 'DELETE',
                 url: '/Invoice/Delete/' + invoiceId,
-                //data: $.param(invoiceId),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }

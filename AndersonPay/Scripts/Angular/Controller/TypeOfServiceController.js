@@ -5,15 +5,17 @@
         .module('App')
         .controller('TypeOfServiceController', TypeOfServiceController);
 
-    TypeOfServiceController.$inject = ['$window', 'TypeOfServiceService'];
+    TypeOfServiceController.$inject = ['$filter', '$window', 'TypeOfServiceService', 'ServiceService'];
 
-    function TypeOfServiceController($window, TypeOfServiceService) {
+    function TypeOfServiceController($filter, $window, TypeOfServiceService, ServiceService) {
         var vm = this;
 
-        vm.TypeOfServices;
+        vm.TypeOfServices = [];
+        vm.Services = [];
 
         vm.GoToUpdatePage = GoToUpdatePage;
         vm.Initialise = Initialise;
+        vm.UpdateService = UpdateService;
 
         vm.Delete = Delete;
 
@@ -30,6 +32,7 @@
             TypeOfServiceService.Read()
                 .then(function (response) {
                     vm.TypeOfServices = response.data;
+                    ReadForService();
                 })
                 .catch(function (data, status) {
                     new PNotify({
@@ -53,5 +56,28 @@
                 });
         }
 
+        function ReadForService() {
+            ServiceService.Read()
+                .then(function (response) {
+                    vm.Services = response.data;
+                    //ReadForTypeOfService();
+                    UpdateService();
+                })
+                .catch(function (data, status) {
+                    new PNotify({
+                        title: status,
+                        text: data,
+                        type: 'error',
+                        hide: true,
+                        addclass: "stack-bottomright"
+                    });
+                });
+        }
+        function UpdateService() {
+            var total = 0;
+            angular.forEach(vm.TypeOfServices, function (typeOfService) {
+                typeOfService.Service = $filter('filter')(vm.TypeOfServices, { TypeOfServiceId: typeOfService.TypeOfServiceId })[0];
+            });
+        }
     }
 })();

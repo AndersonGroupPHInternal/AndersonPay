@@ -5,9 +5,9 @@
         .module('App')
         .controller('InvoiceController', InvoiceController);
 
-    InvoiceController.$inject = ['$filter', '$window', 'InvoiceService', 'ClientService', 'TypeOfServiceService', 'ServiceService'];
+    InvoiceController.$inject = ['$filter', '$window', 'InvoiceService', 'ClientService', 'TypeOfServiceService', 'ServiceService', 'CurrencyService'];
 
-    function InvoiceController($filter, $window, InvoiceService, ClientService, TypeOfServiceService, ServiceService) {
+    function InvoiceController($filter, $window, InvoiceService, ClientService, TypeOfServiceService, ServiceService, CurrencyService) {
         var vm = this;
 
         vm.ClientId;
@@ -34,12 +34,14 @@
         vm.Invoices = [];
         vm.TypeOfServices = [];
         vm.Services = [];
+        vm.Currencies = [];
 
         //read
         vm.ReadForClients = ReadForClients;
         vm.ReadForTypeOfService = ReadForTypeOfService;
         vm.GoToUpdatePage = GoToUpdatePage;
         vm.PDF = PDF;
+        vm.ReadForCurrencies = ReadForCurrencies;
 
         vm.Initialise = Initialise;
         vm.InitialiseCrud = InitialiseCrud;
@@ -70,27 +72,13 @@
             $window.location.href = '../Invoice/Update/' + invoiceId;
         }
 
-        function TryF(taxu) {
-            //console.log(vm.TryS);
-            //vm.TryS = 23;
-            //console.log(vm.TryS +"----");
-
-            //console.log(taxu);
-            //AmountDue(taxu);
-
-            //console.log(vm.Invoices);
-            //console.log(vm.TypeOfServices);
-            console.log(vm.Services);
-            console.log(vm.Invoices);
-            vm.TryS = 10;
-            //console.log(vm.Clients);
+        function TryF(clientId) {
         }
 
-        function Initialise(invoiceId) {
+        function Initialise() {
             Read();
             ReadForClients();
         }
-
         function InitialiseCrud(clientId, invoiceId, address) {
             vm.ClientId = clientId;
             vm.InvoiceId = invoiceId;
@@ -112,6 +100,7 @@
                     if (invoice)
                         vm.Invoice = invoice;
                     ///////////////////////////////////////
+                    ReadForCurrencies();
                 })
                 .catch(function (data, status) {
                     new PNotify({
@@ -303,6 +292,30 @@
                     });
 
                 });
+        }
+
+        function ReadForCurrencies() {
+            CurrencyService.Read()
+                .then(function (response) {
+                    vm.Currencies = response.data;
+                    UpdateCurrency();
+                })
+                .catch(function (data, status) {
+                    new PNotify({
+                        title: status,
+                        text: data,
+                        type: 'error',
+                        hide: true,
+                        addclass: "stack-bottomright"
+                    });
+
+                });
+        }
+
+        function UpdateCurrency() {
+            angular.forEach(vm.Invoices, function (invoice) {
+                invoice.Currency = $filter('filter')(vm.Currencies, { CurrencyId: invoice.CurrencyId })[0];
+            });
         }
     }
 })();

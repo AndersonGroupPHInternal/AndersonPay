@@ -4,7 +4,6 @@ using AndersonPayEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
 
 namespace AndersonPayFunction
 {
@@ -79,10 +78,10 @@ namespace AndersonPayFunction
             {
                 InvoiceId = invoice.InvoiceId,
                 Name = invoice.Name,
-                TaxTypes = invoice.TaxTypes,
+                TaxTypeId = invoice.TaxTypeId,
                 Subtotal = invoice.Subtotal,
                 AmountDue = invoice.AmountDue,
-                Currency = invoice.Currency,
+                CurrencyId = invoice.CurrencyId,
                 Tax = invoice.Tax,
                 Services = invoice.Services?.Select(a => new EService
                 {
@@ -117,8 +116,8 @@ namespace AndersonPayFunction
                 Name = eInvoice.Name,
                 Subtotal = eInvoice.Subtotal,
                 AmountDue = eInvoice.AmountDue,
-                TaxTypes = eInvoice.TaxTypes,
-                Currency = eInvoice.Currency,
+                TaxTypeId = eInvoice.TaxTypeId,
+                CurrencyId = eInvoice.CurrencyId,
                 Tax = eInvoice.Tax,
                 SINo = eInvoice.SINo,
                 TIN = eInvoice.TIN,
@@ -139,8 +138,8 @@ namespace AndersonPayFunction
                 Name = a.Name,
                 AmountDue = a.AmountDue,
                 Subtotal = a.Subtotal,
-                TaxTypes = a.TaxTypes,
-                Currency = a.Currency,
+                TaxTypeId = a.TaxTypeId,
+                CurrencyId = a.CurrencyId,
                 Tax = a.Tax,
                 SINo = a.SINo,
                 TIN = a.TIN,

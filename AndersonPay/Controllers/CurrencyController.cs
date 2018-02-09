@@ -26,7 +26,11 @@ namespace AndersonPay.Controllers
         {
             return Json(_iFCurrencyCode.Read());
         }
-
+        [HttpPost]
+        public JsonResult ReadCurrencyId(int id)
+        {
+            return Json(_iFCurrencyCode.ReadCurrencyId(id));
+        }
         #endregion
     }
 }

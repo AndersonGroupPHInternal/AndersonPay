@@ -17,11 +17,11 @@ namespace AndersonPayModel
 
         public string Address { get; set; }
         public string CreatedDateNow => CreatedDate.ToString(); //There is a dll that will solve MVC json problems
-        public string Currency { get; set; }
+        public int CurrencyId { get; set; }
         public string Name { get; set; }
         public string Recipients { get; set; }
         public string SINo { get; set; }
-        public string TaxTypes { get; set; }
+        public int TaxTypeId { get; set; }
         public string TIN { get; set; }
         public DateTime DueDate => CreatedDate.Value.AddDays(7);
 
@@ -29,7 +29,8 @@ namespace AndersonPayModel
 
         public virtual List<Service> Services { get; set; }
         public virtual List<TypeOfService> TypeOfServices { get; set; }
-
+        public virtual List<Client> Clients { get; set; }
+        public virtual List<CurrencyCode> CurrencyCodes { get; set; }
 
     }
 }

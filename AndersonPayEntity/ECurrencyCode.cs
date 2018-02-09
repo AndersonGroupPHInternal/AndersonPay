@@ -7,10 +7,7 @@ namespace AndersonPayEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CurrencyCodeId { get; set; }
-
+        public int CurrencyId { get; set; }
         public string CurrencyCodes { get; set; }
-
-
     }
 }

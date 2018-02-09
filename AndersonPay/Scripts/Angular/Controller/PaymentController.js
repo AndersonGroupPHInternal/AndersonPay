@@ -22,6 +22,7 @@
         vm.Services = [];
         vm.Invoices = [];
         vm.Clients = [];
+        vm.isAllSelected = [];
 
         vm.GoToUpdatePage = GoToUpdatePage;
         vm.Initialise = Initialise;
@@ -34,15 +35,12 @@
         vm.AmountDue = AmountDue;
         vm.Change = Change;
         vm.TotalChange = TotalChange;
+        vm.CheckboxToggled = CheckboxToggled;
+        vm.ToggleAll = ToggleAll;
+
 
         vm.tryF = tryF;
-        function tryF(invoice) {
-            //var samp = invoice.Payments1 + invoice.Discount;
-            //if (samp == NaN)
-            //{
-            //    samp = 0;
-            //}
-            //console.log(samp);
+        function tryF() {
         }
         function GoToUpdatePage(paymentId) {
             $window.location.href = '../Payment/Update/' + paymentId;
@@ -50,19 +48,13 @@
 
         function Initialise() {
             Read();
-            //ReadForService();
-            //ReadForTypeOfService();
-            //ReadForInvoice();
             ReadForClient();
         }
 
         function ClientChange() {
             ReadForInvoice();
-
-            ///////////////////////////////////
             var invoice = angular.copy(vm.Invoice);
             vm.Invoices.push(invoice);
-            //////////////////////////////////
         }
 
         function Read() {
@@ -149,6 +141,7 @@
                     var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId })[0];
                     if (client)
                         vm.Client = client;
+                    ReadForInvoice();
                 })
                 .catch(function (data, status) {
                     new PNotify({
@@ -163,10 +156,17 @@
         }
 
         function Payment(invoice) {
-            if (invoice.Payment != undefined)
-                return invoice.Payment;
+            if (invoice.Selected == true)
+            {
+                if (invoice.Payment != undefined)
+                    return invoice.Payment;
+                else
+                    return 0;
+            }
             else
+            {
                 return 0;
+            }
         }
 
         function TotalAmountReceived(invoice) {
@@ -189,7 +189,6 @@
         }
 
         function AmountDue(amountDue) {
-            //console.log(amountDue);
             return amountDue;
         }
 
@@ -208,6 +207,19 @@
         function TotalChange() {
             var totalChange = 0;
             return totalChange;
+        }
+
+        function ToggleAll() {
+            var toggleStatus = vm.isAllSelected;
+            angular.forEach(vm.Invoices, function (invoice) {
+                invoice.Selected = toggleStatus;
+            });
+        }
+
+        function CheckboxToggled() {
+            vm.isAllSelected = vm.Invoices.every(function (invoice) {
+                return invoice.Selected;
+            });
         }
     }
 })();

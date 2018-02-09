@@ -23,8 +23,8 @@
         <table class="table table-bordered" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
             <thead>
                 <tr>
+                    <th width="5%"><input type="checkbox" checked="checked" ng-click="model.ToggleAll()" ng-model="model.isAllSelected"/></th>
                     <th width="20%"><center>SI No.</center></th>
-                    @*<th width="20%"><center>Description</center></th>*@
                     <th width="20%"><center>Payment</center></th>
                     <th width="20%"><center>Discount</center></th>
                     <th width="20%"><center>Balance</center></th>
@@ -34,11 +34,11 @@
             <tbody>
                 <tr style="border:none" ng-repeat="invoice in model.Invoices track by $index">
                     <td>
+                        <input type="checkbox" class="form-control" ng-model="invoice.Selected" ng-change="model.CheckboxToggled()"/>
+                    </td>
+                    <td>
                         <input type="text" class="form-control" readonly="readonly" value="{{invoice.SINo}}{{invoice.InvoiceId}}" placeholder="Sales Invoice No.">
                     </td>
-                    @*<td>
-                            <input type="text" class="form-control" readonly="readonly" value="">
-                    </td>*@
                     <td>
                         <input class="form-control" type="number" name="invoice.Invoices[{{$index}}].Payments" ng-model="invoice.Payment" placeholder="0.00" min="0">
                     </td>

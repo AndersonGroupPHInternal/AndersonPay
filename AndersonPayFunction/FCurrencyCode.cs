@@ -31,15 +31,20 @@ namespace AndersonPayFunction
         #endregion
 
         #region READ
-        public CurrencyCode Read(int currencyCodeId)
+        public CurrencyCode Read(int currencyId)
         {
-            ECurrencyCode eCurrencyCode = _iDCurrencyCode.Read<ECurrencyCode>(a => a.CurrencyCodeId == currencyCodeId);
+            ECurrencyCode eCurrencyCode = _iDCurrencyCode.Read<ECurrencyCode>(a => a.CurrencyId == currencyId);
             return CurrencyCode(eCurrencyCode);
         }
 
         public List<CurrencyCode> Read()
         {
             List<ECurrencyCode> eCurrencyCode = _iDCurrencyCode.List<ECurrencyCode>(a => true);
+            return CurrencyCode(eCurrencyCode);
+        }
+        public List<CurrencyCode> ReadCurrencyId(int currencyId)
+        {
+            List<ECurrencyCode> eCurrencyCode = _iDCurrencyCode.List<ECurrencyCode>(a => a.CurrencyId == currencyId);
             return CurrencyCode(eCurrencyCode);
         }
         #endregion
@@ -55,7 +60,7 @@ namespace AndersonPayFunction
         #region DELETE
         public void Delete(int currencyCodeId)
         {
-            _iDCurrencyCode.Delete<ECurrencyCode>(a => a.CurrencyCodeId == currencyCodeId);
+            _iDCurrencyCode.Delete<ECurrencyCode>(a => a.CurrencyId == currencyCodeId);
         }
         #endregion
 
@@ -64,7 +69,7 @@ namespace AndersonPayFunction
         {
             ECurrencyCode returnECurrencyCode = new ECurrencyCode
             {
-                CurrencyCodeId = currencyCode.CurrencyCodeId,
+                CurrencyId = currencyCode.CurrencyId,
                 CurrencyCodes = currencyCode.CurrencyCodes
             };
             return returnECurrencyCode;
@@ -74,7 +79,7 @@ namespace AndersonPayFunction
         {
             CurrencyCode returnCurrencyCode = new CurrencyCode
             {
-                CurrencyCodeId = eCurrencyCode.CurrencyCodeId,
+                CurrencyId = eCurrencyCode.CurrencyId,
                 CurrencyCodes = eCurrencyCode.CurrencyCodes
             };
             return returnCurrencyCode;
@@ -84,7 +89,7 @@ namespace AndersonPayFunction
         {
             var returnCurrencyCode = eCurrencyCode.Select(a => new CurrencyCode
             {
-                CurrencyCodeId = a.CurrencyCodeId,
+                CurrencyId = a.CurrencyId,
                 CurrencyCodes = a.CurrencyCodes
 
             });

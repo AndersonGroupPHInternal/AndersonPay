@@ -43,7 +43,7 @@
                     <label for="ClientId" style="padding-right:270px;">Select Client</label>
                     <div class="dropClient">
                         <ui-select ng-model="model.Client">
-                            <ui-select-match placeholder="Select Client @Model.Name">
+                            <ui-select-match placeholder="Select Client">
                                 <label ng-bind="$select.selected.Name"></label>
                             </ui-select-match>
                             <ui-select-choices repeat="client in (model.Clients | filter: $select.search) track by $index">
@@ -53,8 +53,8 @@
                     </div>
                     <input type="hidden" class="form-control" id="Tax" readonly="readonly" name="Tax" value="@Model.Tax">
                     <input type="hidden" class="form-control" id="invoice.Name" readonly="readonly" name="invoice.Name" value="{{model.Client.Name}}">
-                    <input type="hidden" class="form-control" id="invoice.CurrencyCode" readonly="readonly" name="invoice.Currency" value="{{model.Client.CurrencyCode}}">
-                    <input type="hidden" class="form-control" id="invoice.TaxTypes" readonly="readonly" name="invoice.TaxTypes" value="{{model.Client.TaxTypes}}">
+                    <input type="hidden" class="form-control" id="invoice.CurrencyId" readonly="readonly" name="invoice.CurrencyId" value="{{model.Client.CurrencyCodeId}}">
+                    <input type="hidden" class="form-control" id="invoice.TaxTypes" readonly="readonly" name="invoice.TaxTypeId" value="{{model.Client.TaxTypeId}}">
                     <input type="hidden" class="form-control" id="invoice.Tax" readonly="readonly" name="invoice.Tax" value="{{model.Client.WithHoldingTax}}">
                 </div>
                 <input type="hidden" class="form-control" id="invoice.ClientId" readonly="readonly" name="invoice.ClientId" value="{{model.Client.ClientId}}">
@@ -167,7 +167,7 @@
                     <input type="hidden" class="form-control" id="invoice.AmountDue" readonly="readonly" name="invoice.AmountDue" value="{{model.AmountDue(model.Client.WithHoldingTax)}}">
                     <input type="hidden" class="form-control" id="invoice.Subtotal" readonly="readonly" name="invoice.Subtotal" value="{{model.TotalSales()}}">
                     <br />
-                    <button type="button" ng-click="model.TryF(@Model.Tax)" class="btn btn-primary" style="float:right">TryF</button>
+                    <button type="button" ng-click="model.ReadForCurrencies(model.Client.CurrencyCodeId)" class="btn btn-primary" style="float:right">TryF</button>
                     <button type="button" ng-click="model.CreateInvoiceService()" class="btn btn-primary" style="float:right">Add Service</button>
 
                 </div>
