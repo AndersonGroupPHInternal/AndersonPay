@@ -8,30 +8,31 @@
             <div class="form-group" align="right" style="padding-top:50px;">
                 <input type="hidden" readonly="readonly" class="form-control" id="CreatedDate" name="CreatedDate" placeholder="CreatedDate" value="@Model.CreatedDate">
                 <input type="hidden" readonly="readonly" class="form-control" id="DueDate" name="DueDate" placeholder="DueDate">
-                <label for="SINo">SI No: </label>
-                <label id="SINo"><u>{{model.CompanyBranch.SINo}}</u></label><br>
-                <input type="hidden" readonly="readonly" class="form-group" id="SINo" name="invoice.SINo" value="{{model.CompanyBranch.SINo}}">
                 <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
             </div>
         </div>
 
         <div class="alignContent">
 
-            <div class="floatL" style="float:left">
+            <div class="floatL" style="float:left" ng-controller="CompanyAddressController as model" ng-init="model.Initialise()">
                 <div>
 
-                    <label for="TIN" id="TIN">TIN: <u>{{model.CompanyBranch.TIN}}</u></label><br>
-                    <input type="hidden" class="form-control" id="TIN" name="invoice.TIN" value="{{model.CompanyBranch.TIN}}">
+                    <label for="SINo" id="SINo">SI No:<u>{{model.CompanyAddress.SINo}}</u></label>
+                    <input type="hidden" class="form-control" id="SINo" name="invoice.SINo" value="{{model.CompanyBranch.SINo}}">
+
+                    <label for="TIN" id="TIN">TIN: <u>{{model.CompanyAddress.TIN}}</u></label><br>
+                    <input type="hidden" class="form-control" id="TIN" name="invoice.TIN" value="{{model.CompanyAddress.TIN}}">
                 </div>
+
                 <div class="dropBranch">
-                    <label for="Address" id="Address">Address: {{model.CompanyBranch.Address}}</label>
-                    <input type="hidden" class="form-control" id="Address" name="invoice.Address" value="{{model.CompanyBranch.Address}}">
-                    <ui-select ng-model="model.CompanyBranch">
+                    <label for="Address" id="Address">Address: {{model.CompanyAddress.Address}}</label>
+                    <input type="hidden" class="form-control" id="Address" name="invoice.Address" value="{{model.CompanyAddress.Address}}">
+                    <ui-select ng-model="model.CompanyAddress">
                         <ui-select-match placeholder="Select Branch">
-                            <span ng-bind="$select.selected.CompanyAddress"></span>
+                            <span ng-bind="$select.selected.CompanyBranch"></span>
                         </ui-select-match>
-                        <ui-select-choices repeat="dropDownItem in (model.CompanyBranches | filter: $select.search) track by $index">
-                            <span ng-bind="dropDownItem.CompanyAddress"></span>
+                        <ui-select-choices repeat="companyAddress in (model.CompanyAddresses | filter: $select.search) track by $index">
+                            <span ng-bind="companyAddress.CompanyBranch"></span>
                         </ui-select-choices>
                     </ui-select>
                 </div>
@@ -134,7 +135,7 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"><b><span>TOTAL SALES</span></b></td>
                                 <td style="border:none"></td>
-                                <td style="border:none" ng-bind="model.TotalSales()"></td>
+                                <td style="border:none" ng-bind="model.TotalSales()| number:2"></td>
                                 <td style="border:none"></td>
                             </tr>
                             <tr style="border:none">
@@ -142,7 +143,7 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"><b><span>+ Sales Tax (12%)</span></b></td>
                                 <td style="border:none"></td>
-                                <td style="border:none" ng-bind="model.SalesTax()"></td>
+                                <td style="border:none" ng-bind="model.SalesTax()| number:2"></td>
                                 <td style="border:none"></td>
                             </tr>
                             <tr style="border:none">
@@ -150,7 +151,7 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"><b><span>- Withholding Tax ({{model.Client.WithHoldingTax}}%)</span></b></td>
                                 <td style="border:none"></td>
-                                <td style="border:none" ng-bind="model.WithholdingTax(model.Client.WithHoldingTax)"></td>
+                                <td style="border:none" ng-bind="model.WithholdingTax(model.Client.WithHoldingTax)| number:2"></td>
                                 <td style="border:none"></td>
                             </tr>
                             <tr style="border:none">
@@ -158,7 +159,7 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"></td>
                                 <td style="border:none"><h5><i><b><span>Amount Due:</span></b></i></h5></td>
-                                <td style="border:none"><h5><i><b><span>{{model.Client.CurrencyCode}}</span> <span ng-bind="model.AmountDue(model.Client.WithHoldingTax)"></span></b></i></h5></td>
+                                <td style="border:none"><h5><i><b><span>{{model.Client.CurrencyCode}}</span> <span ng-bind="model.AmountDue(model.Client.WithHoldingTax)| number:2"></span></b></i></h5></td>
                                 <td style="border:none"></td>
                             </tr>
 
