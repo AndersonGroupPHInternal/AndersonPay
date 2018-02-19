@@ -1,3 +1,27 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+
+<div class="pageTService" ng-controller="TypeOfServiceController as model" ng-init="model.Initialise()">
+    <div class="row">
+        <div class="col-sm-12">
+            <label style="font-size: 20px">Type Of Service</label>
+            <table class="table table-hover table-sm table-bordered ">
+                <thead>
+                    <tr class="thead-inverse">
+                        <th>Name Of Service</th>
+                        <th>Service Description</th>
+                        <th>Availed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clickableRow" ng-repeat="typeOfService in model.TypeOfServices">
+                        <td><span ng-bind="typeOfService.Name"></span></td>
+                        <td><span ng-bind="typeOfService.Description"></span></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

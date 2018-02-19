@@ -12,6 +12,7 @@
 
         vm.TaxTypes;
         vm.TaxTypeId;
+        vm.TaxTypeName;
         vm.Initialise = Initialise;
 
         function Initialise(taxTypeId) {

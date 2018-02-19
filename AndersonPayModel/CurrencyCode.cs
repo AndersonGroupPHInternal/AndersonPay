@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AndersonPayModel
+﻿namespace AndersonPayModel
 {
-   public class CurrencyCode
+    public class CurrencyCode
     {
         public int CurrencyId { get; set; }
 

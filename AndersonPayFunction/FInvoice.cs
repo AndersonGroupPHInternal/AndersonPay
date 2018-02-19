@@ -93,8 +93,7 @@ namespace AndersonPayFunction
                     InvoiceId = a.InvoiceId,
                     ServiceId = a.ServiceId,
                     TypeOfServiceId = a.TypeOfServiceId,
-
-                    Description = a.Description,
+                    
                     Comments = a.Comments
                 }).ToList() ?? null,
                 SINo = invoice.SINo,

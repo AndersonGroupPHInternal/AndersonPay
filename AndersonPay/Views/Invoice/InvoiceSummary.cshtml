@@ -110,7 +110,7 @@
                     <td style="font-size: 12px" id="lessWithholdingTax">@Model.Client.TaxType</td>
                     <td style="display:none">
                         <script>
-                            var invoiceSubtotal = @Model.Subtotal;   ////////////////////////////
+                            var invoiceSubtotal = @Model.Subtotal;
                             var clientWithholdingTax = @Model.Tax;
                             var y = clientWithholdingTax * invoiceSubtotal / 100;
                             document.getElementById("lessWithholdingTax").innerHTML = y.toLocaleString();
@@ -119,7 +119,16 @@
                 </tr>
                 <tr style="height: 40px">
                     <td style="font-size: 12px"><b>Total payable for this invoice</b></td>
-                    <td style="font-size: 12px"><b></b> &nbsp; @String.Format(@Model.AmountDue % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.AmountDue) </td>
+                    @foreach (var client in Model.Clients)
+                    {
+                        foreach (var currency in Model.Currencies)
+                        {
+                            if (client.CurrencyCodeId == currency.CurrencyId)
+                            {
+                                <td style="font-size: 12px"><b>@currency.CurrencyCodes</b> &nbsp; @String.Format(@Model.AmountDue % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.AmountDue) </td>
+                            }
+                        }
+                    }
                 </tr>
             </tbody>
         </table>

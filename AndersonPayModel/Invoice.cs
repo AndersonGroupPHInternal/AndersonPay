@@ -30,6 +30,9 @@ namespace AndersonPayModel
         public virtual List<Service> Services { get; set; }
         public virtual List<TypeOfService> TypeOfServices { get; set; }
 
+        public virtual List<Client> Clients { get; set; }
+        public virtual List<CurrencyCode> Currencies { get; set; }
+
 
     }
 }

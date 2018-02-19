@@ -72,17 +72,17 @@
             </tbody>
         </table>
         <div class="form-group" style="text-align:left;">
-            @*<label for="AmountDue">Amount Due: <span>{{model.AmountDue()}}</span></label>*@
+            <label for="AmountDue">Amount Due: <span>{{model.AmountDue()}}</span></label>
         </div>
         <div class="form-group">
             <label for="TotalAmountReceived">Total Amount Received: <span>{{model.TotalAmountReceived(invoice)}}</span></label>
             <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountReceived" value="{{model.TotalAmountReceived(invoice)}}">
         </div>
         <div class="form-group">
-            @*<label for="TotalChange">Total Change: <span>{{model.TotalChange()}}</span></label>*@
+            <label for="TotalChange">Total Change: <span>{{model.TotalChange()}}</span></label>
         </div>
         <div class="form-group">
-            @*<label for="TotalBalance">Total Balance: <span>{{model.TotalBalance(invoice)}}</span></label>*@
+            <label for="TotalBalance">Total Balance: <span>{{model.TotalBalance()}}</span></label>
         </div>
         <div class="form-group"> 
             <input type="submit" class="btn btn-primary" value="Submit" />

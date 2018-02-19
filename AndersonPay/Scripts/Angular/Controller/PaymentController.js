@@ -32,6 +32,7 @@
         vm.ClientChange = ClientChange;
         vm.TotalAmountReceived = TotalAmountReceived;
         vm.Balance = Balance;
+        vm.TotalBalance = TotalBalance;
         vm.AmountDue = AmountDue;
         vm.Change = Change;
         vm.TotalChange = TotalChange;
@@ -171,7 +172,6 @@
                 total = 0;
             return total;
         }
-
         function Balance(invoiceAmountDue, invoice) {
             var balance = 0;
             balance = invoiceAmountDue - Payment(invoice);
@@ -181,10 +181,16 @@
             return balance;
         }
 
-        function AmountDue(amountDue) {
-            return amountDue;
+        function TotalBalance() {
+            var totalBalance = 0;
+            return totalBalance;
         }
 
+        function AmountDue() {
+            var amountDue = 0;
+            return amountDue;
+        }
+        
         function Change(invoiceAmountDue, invoice) {
             var change = 0;
             change = invoiceAmountDue - Payment(invoice);
@@ -197,8 +203,11 @@
             return change;
         }
 
-        function TotalChange() {
+        function TotalChange(invoiceAmountDue, invoice) {
             var totalChange = 0;
+            angular.forEach(vm.Invoices, function (invoiceAmountDue, invoice) {
+                //totalChange += Change(invoiceAmountDue, invoice);
+            });
             return totalChange;
         }
 

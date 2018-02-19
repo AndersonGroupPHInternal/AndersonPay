@@ -10,8 +10,6 @@
         public int ServiceId { get; set; }
         public int TypeOfServiceId { get; set; }
 
-        public string Description { get; set; }
-
         public string Comments { get; set; }
 
         public virtual Invoice Invoice { get; set; }

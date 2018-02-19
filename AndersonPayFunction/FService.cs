@@ -56,7 +56,6 @@ namespace AndersonPayFunction
         public void Delete(int invoiceId)
         {
             _iDService.Delete<EService>(a => a.InvoiceId == invoiceId);
-            //_iDService.Delete(EService(service));
         }
         #endregion
 
@@ -66,7 +65,6 @@ namespace AndersonPayFunction
             EService returnEService = new EService
             {
                 ServiceId = service.ServiceId,
-                Description = service.Description,
                 Quantity = service.Quantity,
                 Rate = service.Rate,
                 InvoiceId = service.InvoiceId,
@@ -82,7 +80,6 @@ namespace AndersonPayFunction
             Service returnService = new Service
             {
                 ServiceId = eService.ServiceId,
-                Description = eService.Description,
                 Quantity = eService.Quantity,
                 Rate = eService.Rate,
                 InvoiceId = eService.InvoiceId,
@@ -97,7 +94,6 @@ namespace AndersonPayFunction
             var returnService = eService.Select(a => new Service
             {
                 ServiceId = a.ServiceId,
-                Description = a.Description,
                 Quantity = a.Quantity,
                 Rate = a.Rate,
                 InvoiceId = a.InvoiceId,

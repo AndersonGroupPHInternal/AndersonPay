@@ -11,6 +11,7 @@
         var vm = this;
 
         vm.ClientId;
+        vm.ClientName;
         vm.InvoiceId;
         vm.Address;
 
@@ -107,7 +108,7 @@
             ClientService.Read()
                 .then(function (response) {
                     vm.Clients = response.data;
-                    var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId })[0];
+                    var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId})[0];
                     if (client)
                         vm.Client = client;
                 })
@@ -123,7 +124,6 @@
                 });
         }
 
-        //create row and column for computation of subtotal
         function CreateInvoiceService() {
             var service = angular.copy(vm.Service);
             vm.Services.push(service);
@@ -225,13 +225,6 @@
                     });
 
                 })
-        }
-
-        //PFD get data
-        function PDF(invoiceId) {
-            $window.location.href = '../Invoice/InvoiceSummary/' + invoiceId;
-            //$window.href = '..("InvoiceSummary", "Invoice")';
-            //$window.location.href = '@Url.Action("InvoiceSummary", "Invoice")';
         }
 
         function ReadForService(invoiceId) {

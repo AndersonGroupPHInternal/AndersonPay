@@ -42,6 +42,12 @@ namespace AndersonPayFunction
             List<EClient> eClient = _iDClient.List<EClient>(a => true);
             return Client(eClient);
         }
+
+        public List<Client> ReadId(int clientId)
+        {
+            List<EClient> eClient = _iDClient.List<EClient>(a => a.ClientId == clientId);
+            return Client(eClient);
+        }
         #endregion
 
         #region UPDATE
