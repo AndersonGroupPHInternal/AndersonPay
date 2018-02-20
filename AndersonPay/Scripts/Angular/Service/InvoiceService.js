@@ -10,8 +10,7 @@
     function InvoiceService($http) {
         return {
             Read: Read,
-            ReadInvoiceForInvoiceinee: ReadInvoiceForInvoiceinee,
-            ReadInvoiceForPosition: ReadInvoiceForPosition,
+            ReadId: ReadId,
             Delete: Delete,
             List: List
         }
@@ -24,18 +23,10 @@
             });
         }
 
-        function ReadInvoiceForInvoiceinee(invoiceineeId) {
+        function ReadId(id) {
             return $http({
                 method: 'POST',
-                url: '/Invoice/ReadInvoiceForInvoiceinee/' + invoiceineeId,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-        }
-
-        function ReadInvoiceForPosition(positionId) {
-            return $http({
-                method: 'POST',
-                url: '/Invoice/ReadInvoiceForPosition/' + positionId,
+                url: '/Invoice/ReadClientId/' + id,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }
@@ -44,7 +35,6 @@
             return $http({
                 method: 'DELETE',
                 url: '/Invoice/Delete/' + invoiceId,
-                //data: $.param(invoiceId),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }
@@ -56,9 +46,8 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }
-        
-        function PDF(InvoiceId)
-        {
+
+        function PDF(InvoiceId) {
             return $http({
                 method: 'POST',
                 url: '/Invoice/Read',

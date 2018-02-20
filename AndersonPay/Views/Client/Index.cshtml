@@ -2,31 +2,6 @@
     ViewBag.Title = "Index";
 }
 
-@*<style> Moved to site
-    .pageCLient {
-        background-color: white;
-        margin: 0px;
-        padding: 10px;
-        padding-top: 20px;
-        height: auto;
-    }
-
-    tr.thead-inverse {
-        background-color: #465A65;
-        color: white;
-    }
-
-    a.btn-default:hover {
-        background-color: #0c7cd5;
-        color: white;
-    }
-
-    a.btn-default {
-        background-color: #2196F3;
-        color: white;
-    }
-</style>*@
-
 <div class="pageClient" ng-controller="ClientController as model" ng-init="model.Initialise()">
     <div class="row">
         <div class="col-sm-4">
@@ -38,11 +13,6 @@
             <table class="table table-hover table-sm table-bordered ">
                 <thead>
                     <tr class="thead-inverse">
-
-                        @*<th>ClientId</th>*@
-                        @*<th>CompanyId</th>*@
-                        @*<th>Email Id<th/>*@
-                        @*<th>TaxTypeId</th>*@
                         <th>Code</th>
                         <th>Name</th>
                         <th>Address</th>
@@ -51,23 +21,17 @@
                         <th>Tax Type</th>
                         <th>Withholding Tax</th>
                         <th>Actions</th>
-
                     </tr>
 
                 </thead>
                 <tbody>
                     <tr class="clickableRow" ng-repeat="client in model.Clients" ng-click="$event.originalEvent.dropdown || model.GoToUpdatePage(client.ClientId)" style="height:20px">
-
-                        @*<td><span ng-bind="client.ClientId"></span></td>*@
-                        @*<td><span ng-bind="client.CompanyId"></span></td>*@
-                        @*<td><span ng-bind="client.EmailId"></span></td>*@
-                        @*<td><span ng-bind="client.TaxTypeId"></span></td>*@
                         <td><span ng-bind="client.Code"></span></td>
                         <td><span ng-bind="client.Name"></span></td>
                         <td><span ng-bind="client.Address"></span></td>
                         <td><span ng-bind="client.RegistrationNo"></span></td>
-                        <td><span ng-bind="client.CurrencyCode"></span></td>
-                        <td><span ng-bind="client.TaxTypes"></span></td>
+                        <td><span ng-bind="client.Currency.CurrencyCodes"></span></td>
+                        <td><span ng-bind="client.TaxType.TaxTypes"></span></td>
                         <td><span ng-bind="client.WithHoldingTax"></span></td>
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">

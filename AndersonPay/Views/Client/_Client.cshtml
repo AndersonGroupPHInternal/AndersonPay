@@ -2,37 +2,12 @@
     ViewBag.Title = "_Client";
 }
 
-@*<style> MOVED to site
-    div.page_Client {
-        background-color: white;
-        margin: 0px;
-        padding: 10px;
-        padding-top: 50px;
-    }
-
-    div.form-group {
-        padding-left: 40px;
-        width: 300px;
-    }
-  
-</style>*@
-
 <div class="page_Client">
 <div class="fieldContent">
 <div class="form-group">
     <label for="Client"></label>
     <input type="hidden" class="form-control" id="client.ClientId" name="client.ClientId" placeholder="Client Id" value="@Model.ClientId" />
 </div>
-
-@*<div class="form-group">
-        <label for="CompanyId">Company Id</label>
-        <input type="number" class="form-control" id="CompanyId" name="CompanyId" placeholder="Company Id" value="@Model.CompanyId">
-</div>*@
-
-@*<div class="form-group">
-        <label for="EmailId">Email Id</label>
-        <input type="hidden" class="form-control" id="EmailId" name="EmailId" placeholder="Email Id" value="@Model.EmailId">
-</div>*@
 
 <div class="form-group">
     <label for="Code">Code</label>
@@ -54,42 +29,33 @@
     <input type="text" autocomplete="off" class="form-control" id="client.RegistrationNo" name="client.RegistrationNo" placeholder="Registration Number" value="@Model.RegistrationNo">
 </div>
 
-     
-@*<div class="form-group">
-    <label for="CurrencyCode">CurrencyCode</label>
-    <select class="form-control" id="CurrencyCode" name="CurrencyCode">
-        <option value="USD" @(Model.CurrencyCode == "USD" ? "Selected" : string.Empty)>USD</option>
-        <option value="GBP" @(Model.CurrencyCode == "GBP" ? "Selected" : string.Empty)>GBP</option>
-        <option value="PHP" @(Model.CurrencyCode == "PHP" ? "Selected" : string.Empty)>PHP</option>
-    </select>
-</div>*@
-
-<div class="widthDrop">
-   <div class="form-group" ng-controller="InvoiceController as model" ng-init="model.Initialise()">
-        <label for="CurrencyCode">Currency</label>
-   <ui-select ng-model="model.Currency">
-       <ui-select-match placeholder="Select Currency">
-            <span ng-bind="$select.selected.Code"></span>
-       </ui-select-match>   
-          <ui-select-choices repeat="dropDownItem in (model.CurrencyCode | filter: $select.search) track by $index">
-            <span ng-bind="dropDownItem.Code"></span>
-          </ui-select-choices>
+<div class="form-group" ng-controller="CurrencyController as model" ng-init="model.Initialise()">
+  <label for="CurrencyCode">Currency Code</label>
+    <ui-select ng-model="model.Currency">
+        <ui-select-match placeholder="Select Currency Code">
+          <label ng-bind="$select.selected.CurrencyCodes"></label>
+        </ui-select-match>
+      <ui-select-choices repeat="currency in (model.Currencies | filter: $select.search) track by $index">
+         <span ng-bind="currency.CurrencyCodes"></span>
+      </ui-select-choices>
     </ui-select>
-        <input type="hidden" class="form-control" id="client.CurrencyCode" name="client.CurrencyCode" value="{{model.Currency.Code}}">
+   <input type="hidden" class="form-control" id="CurrencyCodeId" name="client.CurrencyCodeId" value="{{model.Currency.CurrencyId}}">
+   <input type="hidden" class="form-control" id="CurrencyCodes" name="client.CurrencyCodes" value="{{model.Currency.CurrencyCodes}}">
 </div>
 
-<div class="form-group" ng-controller="InvoiceController as model" ng-init="model.Initialise()">
-     <label for="TaxType">Tax Type</label>
-           <ui-select ng-model="model.TaxType" >
-               <ui-select-match placeholder="Select Tax Type">
-                  <span ng-bind="$select.selected.Type"></span>
-               </ui-select-match>
-             <ui-select-choices repeat="dropDownItem in (model.TaxTypes | filter: $select.search) track by $index">
-                  <span ng-bind="dropDownItem.Type"></span>
+    <div class="form-group" ng-controller="TaxTypeController as model" ng-init="model.Initialise()">
+        <label for="TaxType">Tax Type</label>
+        <ui-select ng-model="model.TaxType">
+            <ui-select-match placeholder="Select Tax Type">
+                <span ng-bind="$select.selected.TaxTypes"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="taxType in (model.TaxTypes | filter: $select.search) track by $index">
+                <span ng-bind="taxType.TaxTypes"></span>
             </ui-select-choices>
-           </ui-select>
-    <input type="hidden" class="form-control" id="client.TaxTypes" name="client.TaxTypes" value="{{model.TaxType.Type}}">
-</div>
+        </ui-select>
+        <input type="hidden" class="form-control" id="TaxTypeId" name="client.TaxTypeId" value="{{model.TaxType.TaxTypeId}}">
+        <input type="hidden" class="form-control" id="TaxTypes" name="client.TaxTypes" value="{{model.TaxType.TaxTypes}}">
+    </div>
 
 </div>
 
@@ -104,9 +70,6 @@
 </div>
 
 <div class="form-group">
-       <input type="submit" class="btn btn-primary" value="Submit" />
+    <input type="submit" class="btn btn-primary" value="Submit" />
 </div>
-    </div>
-
 </div>
- 

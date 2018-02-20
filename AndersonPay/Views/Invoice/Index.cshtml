@@ -4,33 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-@*<style> Moved to site
-    .pageIndexInvoice {
-        background-color: white;
-        margin: 0px;
-        padding: 10px;
-        /*padding-top: 20px;*/
-        height: auto;
-    }
-
-    tr.thead-inverse {
-        background-color: #465A65;
-        color: white;
-        text-align: center;
-    }
-
-    a.btn-default:hover {
-        background-color: #0c7cd5;
-        color: white;
-    }
-
-    a.btn-default {
-        background-color: #2196F3;
-        color: white;
-    }
-
-</style>*@
-
 <div class="pageIndexInvoice" ng-controller="InvoiceController as model" ng-init="model.Initialise()">
     <div class="row">
         <div class="col-sm-4">
@@ -43,12 +16,6 @@
                 <thead>
                     <tr class="thead-inverse">
                         <th>Created Date</th>
-                        @*<th>Invoice Id</th>*@
-                        @*<th>SI No.</th>*@
-                        @*<th>TIN</th>*@
-                        @*<th>Quantity</th>*@
-                        @*<th>Rate</th>*@
-                        @*<th>Subtotal</th>*@
                         <th>Name</th>
                         <th>Currency</th>
                         <th>Tax</th>
@@ -59,16 +26,10 @@
                 <tbody>
                     <tr class="clickableRow" ng-repeat="invoice in model.Invoices" ng-click="$event.originalEvent.dropdown || model.GoToUpdatePage(invoice.InvoiceId)">
                         <td><span ng-bind="invoice.CreatedDateNow"></span></td>
-                        @*<td><span ng-bind="invoice.InvoiceId"></span></td>*@
-                        @*<td><span ng-bind="invoice.SINo"></span></td>*@
-                        @*<td><span ng-bind="invoice.TIN"></span></td>*@
-                        @*<td><span ng-bind="invoice.Service.Quantity"></span></td>*@
-                        @*<td><span ng-bind="invvoice.Service.Rate"></span></td>*@
-                        @*<td><span ng-bind="invoice.Subtotal"></span></td>*@
                         <td><span ng-bind="invoice.Name"></span></td>
-                        <td><span ng-bind="invoice.Currency"></span></td>
-                        <td><span ng-bind="invoice.Tax"></span></td>
-                        <td><span ng-bind="invoice.AmountDue"></span></td>
+                        <td><span ng-bind="invoice.Currency.CurrencyCodes"></span></td>
+                        <td><span ng-bind="invoice.Tax| number:2"></span></td>
+                        <td><span ng-bind="invoice.AmountDue| number:2"></span></td>
 
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">

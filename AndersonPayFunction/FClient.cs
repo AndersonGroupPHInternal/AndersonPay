@@ -42,6 +42,12 @@ namespace AndersonPayFunction
             List<EClient> eClient = _iDClient.List<EClient>(a => true);
             return Client(eClient);
         }
+
+        public List<Client> ReadId(int clientId)
+        {
+            List<EClient> eClient = _iDClient.List<EClient>(a => a.ClientId == clientId);
+            return Client(eClient);
+        }
         #endregion
 
         #region UPDATE
@@ -70,11 +76,11 @@ namespace AndersonPayFunction
                 Address = client.Address,
                 CompanyId = client.CompanyId,
                 RegistrationNo = client.RegistrationNo,
-                //TaxTypeId = client.TaxTypeId,
-                TaxTypes = client.TaxTypes,
-
-                CurrencyCode = client.CurrencyCode,
-                WithHoldingTax = client.WithHoldingTax
+                TaxTypeId = client.TaxTypeId,
+                CurrencyCodeId = client.CurrencyCodeId,
+                WithHoldingTax = client.WithHoldingTax,
+                //TaxTypes = client.TaxTypes,
+                //CurrencyCodes = client.CurrencyCodes
  
             };
             return returnEClient;
@@ -91,11 +97,11 @@ namespace AndersonPayFunction
                 Address = eClient.Address,
                 CompanyId = eClient.CompanyId,
                 RegistrationNo = eClient.RegistrationNo,
-                //TaxTypeId = eClient.TaxTypeId,
-                TaxTypes = eClient.TaxTypes,
-
-                CurrencyCode = eClient.CurrencyCode,
-                WithHoldingTax = eClient.WithHoldingTax
+                TaxTypeId = eClient.TaxTypeId,
+                CurrencyCodeId = eClient.CurrencyCodeId,
+                WithHoldingTax = eClient.WithHoldingTax,
+                //TaxTypes = eClient.TaxTypes,
+                //CurrencyCodes = eClient.CurrencyCodes
 
             };
             return returnClient;
@@ -112,10 +118,11 @@ namespace AndersonPayFunction
                 Address = a.Address,
                 CompanyId = a.CompanyId,
                 RegistrationNo = a.RegistrationNo,
-                //TaxTypeId = a.TaxTypeId,
-                TaxTypes = a.TaxTypes,
-                CurrencyCode = a.CurrencyCode,
+                TaxTypeId = a.TaxTypeId,
+                CurrencyCodeId = a.CurrencyCodeId,
                 WithHoldingTax = a.WithHoldingTax,
+                //TaxTypes = a.TaxTypes,
+                //CurrencyCodes = a.CurrencyCodes
 
             });
 

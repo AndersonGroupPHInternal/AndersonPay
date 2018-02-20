@@ -9,7 +9,6 @@
     padding-right: 15px;
 }
 
-
 ul.attachment
 {
     width:40%;
@@ -26,25 +25,30 @@ ul.attachment li
     list-style-type:none;
 }
 
-    ul.attachment li a
-    {
-        font-weight:bold;
-    }
-        /*ul.attachment li a.title
-        {
-           
-        }*/
-        ul.attachment li a.deleteItem
-        {
-            text-align:right;           
-            color:#808080;
-        }
+ul.attachment li a
+{
+    font-weight:bold;
+}
+
+ul.attachment li a.deleteItem
+{
+    text-align:right;           
+    color:#808080;
+}
+
 .navbar-brand > img {
     display: block;
     max-height: 200%;
     height: 55px;
     width: auto;
     margin: auto;
+}
+
+.ui-select-match-text > span {
+    width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
 }
 /*========================================================== _Client*/
 
@@ -54,11 +58,6 @@ div.page_Client {
     padding: 10px;
     padding-top: 50px;
 }
-
-/*div.form-group {
-    padding-left: 40px;
-    /*width: 300px;*/
-}*/
  
 /*============================================================= client index*/
 
@@ -136,7 +135,6 @@ div.alignContent {
     background-color: white;
     margin: 0px;
     padding: 10px;
-    /*padding-top: 20px;*/
     height: auto;
 }
 
@@ -164,11 +162,6 @@ div.page_Payment {
     padding: 10px;
     padding-top: 50px;
 }
-
-/*div.form-group {
-    padding-left: 40px;
-    /*width: 300px;*/
-}*/
 
 a.btn-default {
     background-color: #2196F3;
@@ -209,10 +202,6 @@ div.page_TypesofService {
     padding-top: 50px;
 }
 
-/*div.form-group {
-    padding-left: 40px;
-    /*width: 300px;*/
-}*/
 
 a.btn-default {
     background-color: #2196F3;
@@ -252,4 +241,33 @@ a.btn-default {
     background: linear-gradient(to right, #159cf6, #97dded);
 }
 
+
+/*=============================================================== IndexDashboard*/
+
+div.pageDashboard {
+    background-color: white;
+    margin: 0px;
+    padding: 10px;
+    padding-top: 20px;
+    height: auto;
+}
+
+tr.thead-inverse {
+    background-color: #465A65;
+    color: white;
+}
+
+a.btn-default:hover {
+    background-color: #0c7cd5;
+    color: white;
+}
+
+a.btn-default {
+    background-color: #2196F3;
+    color: white;
+}
+/*=================================================================* _payment*/
+div.container1 {
+    width:300px;
+}
 

@@ -48,6 +48,8 @@
     <Compile Include="Invoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClientEmail.cs" />
+    <Compile Include="CurrencyCode.cs" />
+    <Compile Include="CompanyAddress.cs" />
     <Compile Include="TaxType.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="TypeOfService.cs" />

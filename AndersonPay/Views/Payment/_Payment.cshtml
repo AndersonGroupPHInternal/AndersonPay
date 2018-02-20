@@ -1,71 +1,91 @@
 @{
     ViewBag.Title = "_Payment";
 }
-@*<style> Moved to site
-    div.page_Client {
-        background-color: white;
-        margin: 0px;
-        padding: 10px;
-        padding-top: 50px;
-    }
 
-    div.form-group {
-        padding-left: 40px;
-        width: 300px;
-    }
-
-    a.btn-default {
-        background-color: #2196F3;
-        color: white;
-    }
-
-</style>*@
 <div class="page_Payment">
-<div class="form-group">
-    <label for="PaymentId"></label>
-    <input type="hidden" class="form-control" id="PaymentId" name="PaymentId" value="@Model.PaymentId">
+    <div class="form-group">
+        <label for="PaymentId"></label>
+        <input type="hidden" class="form-control" id="PaymentId" name="payment.PaymentId" value="@Model.PaymentId">
+    </div>
+    <div ng-controller="PaymentController as model" ng-init="model.Initialise()">
+        
+        <div style="width:100%; display: table;position: relative;">
+            <div style="width:300px; float:left;">
+                <div class="dropClient">
+                    <ui-select ng-model="model.Client" ng-change="model.ClientChange()">
+                        <ui-select-match placeholder="Select Client">
+                            <label ng-bind="$select.selected.Name"></label>
+                        </ui-select-match>
+                        <ui-select-choices repeat="client in (model.Clients | filter: $select.search) track by $index">
+                            <span ng-bind="client.Name"></span>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+                <br>
+                <input type="hidden" class="form-control" id="PaymentId" name="payment.ClientId" value="{{model.Client.ClientId}}">
+                <input type="hidden" class="form-control" id="PaymentId" name="payment.Name" value="{{model.Client.Name}}">
+                <label for="DateOfPayment">Date Of Payment</label>
+                <input type="date" class="form-control" autocomplete="off" id="payment.DateOfPayment" name="payment.DateOfPayment" placeholder="Date Of Payment" value="@Model.DateOfPayment">
+            </div>
+            
+            <div align="right">
+                <label for="AmountReceive" >Amount Receive</label><br>
+                <label for="BankReference" >Bank Reference</label><br>
+                <label for="ORno" >OR No.</label>
+            </div>
+         
+        </div>
+        <br>
+        <table class="table table-bordered" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
+            <thead>
+                <tr>
+                    <th width="5%"><input type="checkbox" checked="checked" ng-click="model.ToggleAll()" ng-model="model.isAllSelected" /></th>
+                    <th width="20%"><center>SI No.</center></th>
+                    <th width="20%"><center>Payment</center></th>
+                    <th width="20%"><center>Discount</center></th>
+                    <th width="20%"><center>Balance</center></th>
+                    <th width="20%"><center>Change</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border:none" ng-repeat="invoice in model.Invoices track by $index">
+                    <td>
+                        <input type="checkbox" class="form-control" ng-model="invoice.Selected" ng-change="model.CheckboxToggled()">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" readonly="readonly" value="{{invoice.SINo}}{{invoice.InvoiceId}}" placeholder="Sales Invoice No.">
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" name="invoice.Invoices[{{$index}}].Payments" ng-model="invoice.Payment" placeholder="0.00" min="0">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" autocomplete="off" id="Discount" name="invoice.Invoices[{{$index}}].Discount" ng-model="invoice.Discount" placeholder="0.00" min="0">
+                    </td>
+                    <td>
+                        @*<input type="text" readonly="readonly" class="form-control" autocomplete="off" id="payment.Balance" name="payment.Balance" placeholder="0" value="{{model.Balance(invoice.AmountDue, invoice)}}">*@
+                        <span>{{model.Balance(invoice.AmountDue, invoice)}}</span>
+                    </td>
+                    <td>
+                        <span>{{model.Change(invoice.AmountDue, invoice)}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="form-group" style="text-align:left;">
+            <label for="AmountDue">Amount Due: <span>{{model.AmountDue()}}</span></label>
+        </div>
+        <div class="form-group">
+            <label for="TotalAmountReceived">Total Amount Received: <span>{{model.TotalAmountReceived(invoice)}}</span></label>
+            <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountReceived" value="{{model.TotalAmountReceived(invoice)}}">
+        </div>
+        <div class="form-group">
+            <label for="TotalChange">Total Change: <span>{{model.TotalChange()}}</span></label>
+        </div>
+        <div class="form-group">
+            <label for="TotalBalance">Total Balance: <span>{{model.TotalBalance()}}</span></label>
+        </div>
+        <div class="form-group"> 
+            <input type="submit" class="btn btn-primary" value="Submit" />
+        </div>
+    </div>
 </div>
-
-<table class="table table-bordered" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
-    <thead>
-        <tr>
-            <th width="20%"><center>SI No.</center></th>
-            <th width="20%"><center>Description</center></th>
-            <th width="20%"><center>Payment</center></th>
-            <th width="20%"><center>Discount</center></th>
-            <th width="20%"><center>Balance</center></th>
-        </tr>
-    </thead>
-
-    <tbody>
-            <tr style="border:none">
-            <td style="border:none"></td>
-            <td style="border:none"></td>
-            <td style="border:none">    
-                <input type="number" class="form-control" autocomplete="off" id="payment.Payments" name="payment.Payments" placeholder="0" value="@Model.Payments">
-            </td>
-            <td style="border:none">
-                <input type="number" class="form-control" autocomplete="off" id="payment.Discount" name="payment.Discount" placeholder="0" value="@Model.Discount">
-            </td>
-            <td style="border:none">
-                <input type="number" class="form-control" autocomplete="off" id="payment.Balance" name="payment.Balance" placeholder="0" value="@Model.Balance">
-            </td>
-        </tr>
-    </tbody>
-
-</table>
-
-    <div class="form-group">
-        <label for="DateOfPayment">Date Of Payment</label>
-        <input type="date" class="form-control" autocomplete="off" id="payment.DateOfPayment" name="payment.DateOfPayment" placeholder="Date Of Payment" value="@Model.DateOfPayment">
-    </div>
-
-    <div class="form-group">
-        <label for="AmountReceived">Amount Received</label>
-        <input type="number" class="form-control" autocomplete="off" id="payment.AmountReceived" name="payment.AmountReceived" placeholder="Amount Received" value="@Model.AmountReceived">
-    </div>
-
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Submit" />
-    </div>
-    </div>

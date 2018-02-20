@@ -1,0 +1,157 @@
+﻿@{
+    ViewBag.Title = "Index";
+}x
+
+<div class="content-wrapper">
+    <div class="content">
+        <div class="panel panel-flat">
+            <div class="panel-heading" style="background-color:#609dff">
+                <h4>Bar Chart</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <canvas id="BarChart" style="margin-top:30px"></canvas>
+                <div class="text-right">
+                    <button class="btn btn-primary"><i class="icon-printer position-left"></i>Print</button>
+                </div> 
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading" style="background-color:#609dff">
+                <h4>Pie Chart</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div style="height:500px;width:500px;margin-left:250px;margin-top:50px">
+                    <canvas id="PieChart"></canvas>
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-primary"><i class="icon-printer position-left"></i>Print</button>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-flat">
+            <div class="panel-heading" style="background-color:#609dff">
+                <h4>Line Chart</h4>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel-body">
+                <canvas id="lineChart" style="margin-top:20px"></canvas>
+                <div class="text-right">
+                    <button class="btn btn-primary"><i class="icon-printer position-left"></i>Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script>
+    var monthly = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    var ctx7 = $('#myChart');
+    var myChart = new Chart(ctx7, {
+        type: 'bar',
+        data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            datasets: [{
+                 label: 'Total in month',
+                data: monthly,
+                backgroundColor: [
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                    'rgba(115, 91, 79, 0.3)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            legend: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginA tZero: true
+                                }
+                }]
+            },
+            "animation sjiowdne = 'bottom';
+                    ctx.fillStyle = "black";
+                    this.data.datasets.forEach(function (dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function (bar, index) {
+                            var data = dataset.data[index];
+                            ctx.fillText(data, bar._model.x, bar._model.y - 5);
+                        });
+                    });
+                }
+            }
+
+        },
+    });
+</script>
+
+<div class="pageDashboard" ng-controller="TypeOfServiceController as model" ng-init="model.Initialise()">
+    <div class="row">
+        <div class="col-sm-4">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4>Type of Service</h4>
+            <table class="table table-hover table-sm table-bordered ">
+                <thead>
+                    <tr class="thead-inverse">
+                        <th>Name Of Service</th>
+                        <th>Service Description</th>
+                        <th>Availed</th>
+                    </tr>
+
+
+                </thead>
+                <tbody>
+                    <tr class="clickableRow" ng-repeat="typeOfService in model.TypeOfServices">
+                        <td><span ng-bind="typeOfService.Name"></span></td>
+                        <td><span ng-bind="typeOfService.Description"></span></td>
+                        <td><span ng-bind="typeOfService.Availed"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div>
+        <canvas id="myChart" height="900"></canvas>
+    </div>
+</div>*@

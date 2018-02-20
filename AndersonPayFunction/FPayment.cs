@@ -71,7 +71,9 @@ namespace AndersonPayFunction
                 AmountReceived = payment.AmountReceived,
                 Payments = payment.Payments,
                 Discount = payment.Discount,
-                Balance = payment.Balance
+                Balance = payment.Balance,
+                ClientId = payment.ClientId,
+                Name = payment.Name
             };
 
             return returnEPayment;
@@ -82,11 +84,12 @@ namespace AndersonPayFunction
             Payment returnPayment = new Payment
             {
                 PaymentId = ePayment.PaymentId,
-                DateOfPayment = ePayment.DateOfPayment,
                 AmountReceived = ePayment.AmountReceived,
                 Payments = ePayment.Payments,
                 Discount = ePayment.Discount,
-                Balance = ePayment.Balance
+                Balance = ePayment.Balance,
+                ClientId = ePayment.ClientId,
+                Name = ePayment.Name
             };
             return returnPayment;
         }
@@ -96,11 +99,12 @@ namespace AndersonPayFunction
             var returnPayment = ePayment.Select(a => new Payment
             {
                 PaymentId = a.PaymentId,
-                DateOfPayment = a.DateOfPayment,
                 AmountReceived = a.AmountReceived,
                 Payments = a.Payments,
                 Discount = a.Discount,
-                Balance = a.Balance
+                Balance = a.Balance,
+                ClientId = a.ClientId,
+                Name = a.Name
             });
 
             return returnPayment.ToList();

@@ -10,8 +10,6 @@
     function TypeOfServiceService($http) {
         return {
             Read: Read,
-            ReadTypeOfServiceForTypeOfServiceinee: ReadTypeOfServiceForTypeOfServiceinee,
-            ReadTypeOfServiceForPosition: ReadTypeOfServiceForPosition,
             Delete: Delete
         }
 
@@ -22,23 +20,6 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }
-
-        function ReadTypeOfServiceForTypeOfServiceinee(typeOfServiceineeId) {
-            return $http({
-                method: 'POST',
-                url: '/TypeOfService/ReadTypeOfServiceForTypeOfServiceinee/' + typeOfServiceineeId,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-        }
-
-        function ReadTypeOfServiceForPosition(positionId) {
-            return $http({
-                method: 'POST',
-                url: '/TypeOfService/ReadTypeOfServiceForPosition/' + positionId,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-        }
-
 
         function Delete(typeOfService) {
             return $http({

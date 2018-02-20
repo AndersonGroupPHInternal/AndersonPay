@@ -8,7 +8,7 @@ namespace AndersonPayEntity
     {
         public decimal Quantity { get; set; }
         public decimal Rate { get; set; }
-        public decimal Subtotal { get; set; }   // added mcjieh
+        public decimal Subtotal { get; set; }
 
         [ForeignKey("Invoice")]
         public int InvoiceId { get; set; }
@@ -17,8 +17,7 @@ namespace AndersonPayEntity
         public int ServiceId { get; set; }
         [ForeignKey("TypeOfService")]
         public int TypeOfServiceId { get; set; }
-
-        public string Description { get; set; }
+        
         public string Comments { get; set; }
 
         public virtual EInvoice Invoice { get; set; }

@@ -11,7 +11,11 @@ namespace AndersonPayEntity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CompanyAddressId { get; set; }
-        public string CompanyAddress { get; set; }
+
+        public string CompanyBranch { get; set; }
+        public string Address { get; set; }
+        public string SINo { get; set; }
+        public string TIN { get; set; }
 
 
     }

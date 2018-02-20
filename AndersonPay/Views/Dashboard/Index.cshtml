@@ -1,39 +1,11 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-<style>
-    .pageTService {
-        background-color: white;
-        margin: 0px;
-        padding: 10px;
-        padding-top: 20px;
-        height: auto;
-    }
-
-    tr.thead-inverse {
-        background-color: #465A65;
-        color: white;
-    }
-
-    a.btn-default:hover {
-        background-color: #0c7cd5;
-        color: white;
-    }
-
-    a.btn-default {
-        background-color: #2196F3;
-        color: white;
-    }
-</style>
 
 <div class="pageTService" ng-controller="TypeOfServiceController as model" ng-init="model.Initialise()">
     <div class="row">
-        <div class="col-sm-4">
-        </div>
-    </div>
-    <div class="row">
         <div class="col-sm-12">
-            <h4>Type of Service</h4>
+            <label style="font-size: 20px">Type Of Service</label>
             <table class="table table-hover table-sm table-bordered ">
                 <thead>
                     <tr class="thead-inverse">
@@ -46,7 +18,7 @@
                     <tr class="clickableRow" ng-repeat="typeOfService in model.TypeOfServices">
                         <td><span ng-bind="typeOfService.Name"></span></td>
                         <td><span ng-bind="typeOfService.Description"></span></td>
-                        <td><span ng-bind="typeOfService.Availed"></span></td>
+                        <td></td>
                     </tr>
                 </tbody>
             </table>

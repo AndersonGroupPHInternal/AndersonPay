@@ -1,4 +1,4 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,8 +10,10 @@ namespace AndersonPayEntity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PaymentId { get; set; }
-
-        public string DateOfPayment { get; set; }
+        //[ForeignKey("Client")]
+        public int ClientId { get; set; }
+        [Column(TypeName = "DateTime2")]
+        public DateTime? DateOfPayment { get; set; }
         public decimal AmountReceived { get; set; }
         public decimal Payments { get; set; }
         public decimal Discount { get; set; }

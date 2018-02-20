@@ -10,6 +10,7 @@ namespace AndersonPayFunction
         #endregion
 
         #region READ
+        List<Service> Read();
         List<Service> Read(int invoiceId);
         #endregion
 

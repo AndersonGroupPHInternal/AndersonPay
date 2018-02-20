@@ -5,25 +5,23 @@
 
 }
 
-        @*This block should be in angular controller*@
-<script type="text/javascript">
+            
+<script> @*move the script to angular.js *@
     function genPDF() {
         var pdf = new jsPDF('p', 'pt', 'letter');
 
         pdf.cellInitialize();
         pdf.setFontSize(10);
-         pdf.fromHTML($('img.logo').get(0), 400, 30, { 'width': 500 });       // 20 yung default x-y
-        pdf.fromHTML($('img.logo').get(0), 400, 30, { 'width': 500 });       // 20 yung default x-y
         pdf.fromHTML($('.include').get(0), 400, 30, { 'width': 500 });       // 20 yung default x-y
         pdf.fromHTML($('.include2').get(0), 50, 140, { 'width': 500 });      // 20 yung default x-y
         pdf.fromHTML($('.pdfCientName').get(0), 400, 115, { 'width': 500 });       // 20 yung default x-y
 
-
+         
         $.each($('#tableData tr'), function (i, row) {
             $.each($(row).find("td, th"), function (j, cell) {
                 var txt = $(cell).text().trim() || " ";
                 var width = (j == 4) ? 20 : 260; //make 4th column smaller
-                var height = (j == 4) ? 3 : 20; //
+                var height = (j == 4) ? 3 : 20;
                 pdf.cell(50, 215, width, height, txt, i); // 50 original
             });
         });
@@ -31,15 +29,11 @@
     }
 </script>
 
-@*<div class="panel panel-heading" id="grad1" style="padding:5px;margin-bottom:10px;padding-left:20px;">
-        <h3>Summary</h3>
-    </div>*@
 <div class="form-group">
     <img class="logo" src="~/Content/assets/img/pdf-logo.jpg" style="float:left; padding-left:70px; padding-top:40px; height:auto; width:200px;">
 
     <div class="include" align="right" style="padding-right: 80px; padding-top:80px;">
         <h4><b>Billing Statement</b></h4>
-        @* Change the SINo ID generation *@
         <h6><b>Sales Invoice No.</b> @Model.SINo@Model.InvoiceId</h6>
         <h6><b>TIN No: </b>@Model.TIN</h6>
     </div>
@@ -74,8 +68,6 @@
                                 </td>
                                 <td style="font-size: 12px">
                                     @String.Format(@service.Subtotal % 1 == 0 ? "{0:N0}" : "{0:N2}",@service.Subtotal)
-                                    @*@String.Format("{0:0.00}", @service.Subtotal)*@
-                                    @*@service.Subtotal.ToString()*@
                                 </td>
                             </tr>
                         }
@@ -101,30 +93,42 @@
                 </tr>
                 <tr style="height: 40px">
                     <td style="font-size: 12px">Sub-Total</td>
-                    <td style="font-size: 12px">@Model.Subtotal</td>
+                    <td style="font-size: 12px">@String.Format(@Model.Subtotal % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.Subtotal)</td>
                 </tr>
                 <tr style="height: 40px">
                     <td style="font-size: 12px">Plus: 12% VAT</td>
                     <td style="font-size: 12px" id="plusVAT">
                         <script>
-                        var invoiceSubtotal = @Model.Subtotal;
-                        document.getElementById("plusVAT").innerHTML = 12 * invoiceSubtotal / 100;
+                            var invoiceSubtotal = @Model.Subtotal;
+                            var z = 12 * invoiceSubtotal / 100;
+                            document.getElementById("plusVAT").innerHTML = z.toLocaleString();
                         </script>
                     </td>
                 </tr>
                 <tr>
                     <td style="font-size: 12px">Less: @Model.Client.WithHoldingTax% Withholding TAX</td>
-                    <td style="font-size: 12px" id="lessWithholdingTax">@Model.Client.TaxTypes
-                    <script>
-                        var invoiceSubtotal = @Model.Subtotal;
-                        var clientWithholdingTax = @Model.Tax;
-                        document.getElementById("lessWithholdingTax").innerHTML = clientWithholdingTax * invoiceSubtotal / 100;
-                    </script>
+                    <td style="font-size: 12px" id="lessWithholdingTax">@Model.Client.TaxType</td>
+                    <td style="display:none">
+                        <script>
+                            var invoiceSubtotal = @Model.Subtotal;
+                            var clientWithholdingTax = @Model.Tax;
+                            var y = clientWithholdingTax * invoiceSubtotal / 100;
+                            document.getElementById("lessWithholdingTax").innerHTML = y.toLocaleString();
+                        </script>
                     </td>
                 </tr>
                 <tr style="height: 40px">
                     <td style="font-size: 12px"><b>Total payable for this invoice</b></td>
-                    <td style="font-size: 12px">@String.Format(@Model.AmountDue % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.AmountDue)</td>
+                    @foreach (var client in Model.Clients)
+                    {
+                        foreach (var currency in Model.Currencies)
+                        {
+                            if (client.CurrencyCodeId == currency.CurrencyId)
+                            {
+                                <td style="font-size: 12px"><b>@currency.CurrencyCodes</b> &nbsp; @String.Format(@Model.AmountDue % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.AmountDue) </td>
+                            }
+                        }
+                    }
                 </tr>
             </tbody>
         </table>

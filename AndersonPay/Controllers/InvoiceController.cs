@@ -17,12 +17,14 @@ namespace AndersonPay.Controllers
         private IFInvoice _iFInvoice;
         private IFService _iFService;
         private IFTypeOfService _iFTypeOfService;
+        private IFCurrencyCode _iFCurrencyCode;
         public InvoiceController()
         {
             _iFClient = new FClient();
             _iFInvoice = new FInvoice();
             _iFService = new FService();
             _iFTypeOfService = new FTypeOfService();
+            _iFCurrencyCode = new FCurrencyCode();
         }
         // Create new Invoice
         #region Create 
@@ -45,12 +47,16 @@ namespace AndersonPay.Controllers
             var invoice = _iFInvoice.Read(id);
             var services = _iFService.Read(id);
             var client = _iFClient.Read(invoice.ClientId);
+            var clients = _iFClient.ReadId(invoice.ClientId);
             var typeOfServices = _iFTypeOfService.Read();
+            var currencies = _iFCurrencyCode.ReadCurrencyId(invoice.CurrencyId);
             //var taxType = _iFTaxType.Read(client.TaxTypeId); // uncomment the next two lines once the TaxType table is done
             //client.TaxType = taxType;
             invoice.Client = client;
+            invoice.Clients = clients;
             invoice.Services = services;
             invoice.TypeOfServices = typeOfServices;
+            invoice.Currencies = currencies;
             return PartialView(invoice);
         }
         // Read list of invoices
@@ -66,7 +72,11 @@ namespace AndersonPay.Controllers
         {
             return Json(_iFInvoice.Read());
         }
-
+        [HttpPost]
+        public JsonResult ReadClientId(int id)
+        {
+            return Json(_iFInvoice.ReadClientId(id));
+        }
         #endregion
 
         //UPDATE CLIENT
@@ -81,7 +91,7 @@ namespace AndersonPay.Controllers
         public ActionResult Update(Invoice invoice)
         {
             _iFService.Delete(invoice.InvoiceId);
-            if(invoice.Services != null)
+            if (invoice.Services != null)
                 foreach (Service service in invoice.Services)
                 {
                     _iFService.Create(invoice.InvoiceId, service);
@@ -105,5 +115,4 @@ namespace AndersonPay.Controllers
         }
         #endregion
     }
-    // asdasd
 }

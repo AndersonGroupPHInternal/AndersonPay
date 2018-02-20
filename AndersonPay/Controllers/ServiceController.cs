@@ -13,18 +13,24 @@ namespace AndersonPay.Controllers
         }
         #region Create
         #endregion
-        
+
         #region Read
         [HttpPost]
-        public JsonResult Read(int id)
+        public JsonResult ReadId(int id)
         {
             return Json(_iFService.Read(id));
         }
+
+        [HttpPost]
+        public JsonResult Read()
+        {
+            return Json(_iFService.Read());
+        }
         #endregion
-        
+
         #region Update
         #endregion
-        
+
         #region Delete
         #endregion
     }

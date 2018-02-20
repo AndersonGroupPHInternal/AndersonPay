@@ -9,8 +9,6 @@ namespace AndersonPayEntity
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TaxTypeId { get; set; }
 
-        public string Type { get; set; }
-
-
+        public string TaxTypes { get; set; }
     }
 }

@@ -10,8 +10,7 @@
     function ClientService($http) {
         return {
             Read: Read,
-            ReadClientForClientinee: ReadClientForClientinee,
-            ReadClientForPosition: ReadClientForPosition,
+            ReadId: ReadId,
             Delete: Delete
         }
 
@@ -23,18 +22,10 @@
             });
         }
 
-        function ReadClientForClientinee(clientineeId) {
+        function ReadId(id) {
             return $http({
                 method: 'POST',
-                url: '/Client/ReadClientForClientinee/' + clientineeId,
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-            });
-        }
-
-        function ReadClientForPosition(positionId) {
-            return $http({
-                method: 'POST',
-                url: '/Client/ReadClientForPosition/' + positionId,
+                url: '/Client/ReadClientId/' + id,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }
@@ -48,4 +39,4 @@
             });
         }
     }
-})();
+})();   

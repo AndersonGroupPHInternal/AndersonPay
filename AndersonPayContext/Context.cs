@@ -41,6 +41,8 @@ namespace AndersonPayContext
         public DbSet<EClient> Client { get; set; }
         public DbSet<ETaxType> TaxType { get; set; }
         public DbSet<EPayment> Payment { get; set; }
+        public DbSet<ECurrencyCode> CurrencyCode { get; set; }
+        public DbSet<ECompanyAddress> CompanyAddress { get; set; }
 
     }
 }

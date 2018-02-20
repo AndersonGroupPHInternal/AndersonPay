@@ -16,6 +16,7 @@ namespace AndersonPayFunction
         #region READ
         Client Read(int clientId);
         List<Client> Read();
+        List<Client> ReadId(int clientId);
         #endregion
 
         #region Update

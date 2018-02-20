@@ -9,31 +9,30 @@
                 <input type="hidden" readonly="readonly" class="form-control" id="CreatedDate" name="CreatedDate" placeholder="CreatedDate" value="@Model.CreatedDate">
                 <input type="hidden" readonly="readonly" class="form-control" id="DueDate" name="DueDate" placeholder="DueDate">
                 <label for="SINo">SI No: </label>
-                <label id="SINo"><u>{{model.CompanyBranch.SINo}}@Model.SINo</u></label><br>
+                <label id="SINo"><u>{{model.CompanyBranch.SINo}}</u></label><br>
                 <input type="hidden" readonly="readonly" class="form-group" id="SINo" name="invoice.SINo" value="{{model.CompanyBranch.SINo}}">
-                <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}} @Model.InvoiceId">
+                <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
             </div>
         </div>
 
         <div class="alignContent">
 
+           
             <div class="floatL" style="float:left">
                 <div>
 
-                    <label for="TIN" id="TIN">TIN: <u>{{model.CompanyBranch.TIN}}@Model.TIN</u></label><br>
+                    <label for="TIN" id="TIN">TIN: <u>{{model.CompanyBranch.TIN}}</u></label><br>
                     <input type="hidden" class="form-control" id="TIN" name="invoice.TIN" value="{{model.CompanyBranch.TIN}}">
                 </div>
-
-
                 <div class="dropBranch">
-                    <label for="Address" id="Address">Address: {{model.CompanyBranch.Address}} @Model.Address</label>
-                    <input type="hidden" class="form-control" id="Address" name="invoice.Address" value="{{model.CompanyBranch.Address}} @Model.Address">
+                    <label for="Address" id="Address">Address: {{model.CompanyBranch.Address}}</label>
+                    <input type="hidden" class="form-control" id="Address" name="invoice.Address" value="{{model.CompanyBranch.Address}}">
                     <ui-select ng-model="model.CompanyBranch">
                         <ui-select-match placeholder="Select Branch">
-                            <span ng-bind="$select.selected.CompanyAddress"></span>
+                            <span ng-bind="$select.selected.CompanyBranch"></span>
                         </ui-select-match>
-                        <ui-select-choices repeat="dropDownItem in (model.CompanyBranches | filter: $select.search) track by $index">
-                            <span ng-bind="dropDownItem.CompanyAddress"></span>
+                        <ui-select-choices repeat="companyBranch in (model.CompanyBranches | filter: $select.search) track by $index">
+                            <span ng-bind="companyBranch.CompanyBranch"></span>
                         </ui-select-choices>
                     </ui-select>
                 </div>
@@ -45,7 +44,7 @@
                     <label for="ClientId" style="padding-right:270px;">Select Client</label>
                     <div class="dropClient">
                         <ui-select ng-model="model.Client">
-                            <ui-select-match placeholder="Select Client @Model.Name">
+                            <ui-select-match placeholder="Select Client">
                                 <label ng-bind="$select.selected.Name"></label>
                             </ui-select-match>
                             <ui-select-choices repeat="client in (model.Clients | filter: $select.search) track by $index">
@@ -55,14 +54,12 @@
                     </div>
                     <input type="hidden" class="form-control" id="Tax" readonly="readonly" name="Tax" value="@Model.Tax">
                     <input type="hidden" class="form-control" id="invoice.Name" readonly="readonly" name="invoice.Name" value="{{model.Client.Name}}">
-                    <input type="hidden" class="form-control" id="invoice.CurrencyCode" readonly="readonly" name="invoice.Currency" value="{{model.Client.CurrencyCode}}">
-                    <input type="hidden" class="form-control" id="invoice.TaxTypes" readonly="readonly" name="invoice.TaxTypes" value="{{model.Client.TaxTypes}}">
+                    <input type="hidden" class="form-control" id="invoice.CurrencyId" readonly="readonly" name="invoice.CurrencyId" value="{{model.Client.CurrencyCodeId}}">
+                    <input type="hidden" class="form-control" id="invoice.TaxTypes" readonly="readonly" name="invoice.TaxTypeId" value="{{model.Client.TaxTypeId}}">
                     <input type="hidden" class="form-control" id="invoice.Tax" readonly="readonly" name="invoice.Tax" value="{{model.Client.WithHoldingTax}}">
                 </div>
-                @*<label><u>{{model.Client.ClientId}}@Model.ClientId</u></label><br>*@
                 <input type="hidden" class="form-control" id="invoice.ClientId" readonly="readonly" name="invoice.ClientId" value="{{model.Client.ClientId}}">
             </div>
-
             @*Computation ng Subtotal*@
             <div class="form-group-material">
 
@@ -73,9 +70,9 @@
                         <thead>
                             <tr>
                                 <th width="5%" style="display:none">Index</th>
-                                <th width="30%"><center>Type of Service</center></th>
+                                <th width="25%"><center>Type of Service</center></th>
                                 <th width="20%"><center> Comment</center></th>
-                                <th width="15%"><center>Quantity</center></th>
+                                <th width="20%"><center>Quantity</center></th>
                                 <th width="15%"><center>Rate</center></th>
                                 <th width="10%"><center>Subtotal</center></th>
                                 <th></th>
@@ -88,16 +85,15 @@
                                     {{$index}}
                                     <input type="text" name="invoice.Services[{{$index}}].TypeOfServiceId" value="{{service.TypeOfService.TypeOfServiceId}}" />
                                 </td>
-
                                 <!--Type of Service && Description-->
                                 <td>
-                                    <ui-select ng-model="service.TypeOfService">
+                                    <ui-select ng-model="service.TypeOfService" >
                                         <ui-select-match placeholder="Select Type of Service">
                                             <label ng-bind="$select.selected.Name"></label> -
                                             <label ng-bind="$select.selected.Description"></label>
                                             <input type="hidden" class="form-control" id="NameOfService" readonly="readonly" name="NameOfService" value="{{$select.selected.Name}}">
                                         </ui-select-match>
-                                        <ui-select-choices repeat="typeOfServices in (model.TypeOfServices | filter: $select.search) track by $index">
+                                        <ui-select-choices repeat="typeOfServices in (model.TypeOfServices | filter: $select.search) track by $index" style="overflow: hidden">
                                             <span ng-bind="typeOfServices.Name"></span>
                                         </ui-select-choices>
                                         </ui-select>
@@ -107,7 +103,6 @@
                                     <!--Comment-->
                                     <input type="text" autocomplete="off" class="form-control" id="invoice.Services[{{$index}}].Comments" name="invoice.Services[{{$index}}].Comments" placeholder="Comment" value="{{service.Comments}}">
                                 </td>
-
                                 <!-- Quantity -->
                                 <td>
                                     <input class="form-control" type="number" name="invoice.Services[{{$index}}].Quantity" ng-model="service.Quantity" placeholder="1" min="1" />
@@ -120,7 +115,7 @@
 
                                 <!--Subtotal-->
                                 <td>
-                                    <span ng-bind="model.Subtotal(service)">@Model.Subtotal</span>
+                                    <span ng-bind="model.Subtotal(service)| number:2">@Model.Subtotal</span>
                                 </td>
 
                                 <td><button type="button" ng-click="model.deleteRow($index)" class="btn btn-info glyphicon glyphicon-trash"></button></td>
@@ -140,7 +135,7 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"><b><span>TOTAL SALES</span></b></td>
                                 <td style="border:none"></td>
-                                <td style="border:none" ng-bind="model.TotalSales()"></td>
+                                <td style="border:none" ng-bind="model.TotalSales()| number:2"></td>
                                 <td style="border:none"></td>
                             </tr>
                             <tr style="border:none">
@@ -148,15 +143,15 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"><b><span>+ Sales Tax (12%)</span></b></td>
                                 <td style="border:none"></td>
-                                <td style="border:none" ng-bind="model.SalesTax()"></td>
+                                <td style="border:none" ng-bind="model.SalesTax()| number:2"></td>
                                 <td style="border:none"></td>
                             </tr>
                             <tr style="border:none">
                                 <td style="border:none">
                                 <td style="border:none"></td>
-                                <td style="border:none"><b><span>- Withholding Tax</span></b></td>
+                                <td style="border:none"><b><span>- Withholding Tax ({{model.Client.WithHoldingTax}}%)</span></b></td>
                                 <td style="border:none"></td>
-                                <td style="border:none" ng-bind="model.WithholdingTax(model.Client.WithHoldingTax)"></td>
+                                <td style="border:none" ng-bind="model.WithholdingTax(model.Client.WithHoldingTax)| number:2"></td>
                                 <td style="border:none"></td>
                             </tr>
                             <tr style="border:none">
@@ -164,8 +159,8 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"></td>
                                 <td style="border:none"><h5><i><b><span>Amount Due:</span></b></i></h5></td>
-                                <td style="border:none"><h5><i><b> <span ng-bind="model.AmountDue(model.Client.WithHoldingTax)| number:2"></span></b></i></h5></td>
-                                <td style="border:none"><h5><i><b><span>{{model.Client.CurrencyCode}}</span></b></i></h5></td>
+                                <td style="border:none"><h5><i><b><span>{{model.Client.CurrencyCode}}</span> <span ng-bind="model.AmountDue(model.Client.WithHoldingTax)| number:2"></span></b></i></h5></td>
+                                <td style="border:none"></td>
                             </tr>
 
 
@@ -179,25 +174,6 @@
                 </div>
             </div>
         </div>
-
-        @*<script>
-
-                $('body').on('hidden.bs.modal', '.modal', function(){
-                    $(this).removeData('bs.modal');
-                });
-            </script>
-            <div class = "modal fade" id="myModal" role="dialog" aria-labled="myModalLabel">
-                <div class = "modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" href="@Url.Action("InvoiceSummary", "Invoice")">
-                     Proceed
-                </button>
-            </div>*@
-        @* Old Submit *@
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Submit" />
         </div>

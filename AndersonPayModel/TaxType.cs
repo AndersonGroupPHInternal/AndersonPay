@@ -10,6 +10,6 @@ namespace AndersonPayModel
     {
         public int TaxTypeId { get; set; }
 
-        public string Type { get; set; }
+        public string TaxTypes { get; set; }
     }
 }

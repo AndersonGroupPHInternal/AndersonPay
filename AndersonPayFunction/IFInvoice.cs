@@ -1,10 +1,5 @@
-﻿using AndersonPayEntity;
-using AndersonPayModel;
-using System;
+﻿using AndersonPayModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AndersonPayFunction
 {
@@ -17,6 +12,7 @@ namespace AndersonPayFunction
         #region READ
         Invoice Read(int invoiceId);
         List<Invoice> Read();
+        List<Invoice> ReadClientId(int clientId);
         #endregion
 
         #region Update

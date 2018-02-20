@@ -489,13 +489,19 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\Angular\app.module.js" />
     <Content Include="Scripts\Angular\Controller\ClientController.js" />
+    <Content Include="Scripts\Angular\Controller\CompanyAddressController.js" />
+    <Content Include="Scripts\Angular\Controller\TaxTypeController.js" />
     <Content Include="Scripts\Angular\Controller\InvoiceController.js" />
+    <Content Include="Scripts\Angular\Controller\CurrencyController.js" />
     <Content Include="Scripts\Angular\Controller\TypeOfServiceController.js" />
     <Content Include="Scripts\Angular\Controller\PaymentController.js" />
     <Content Include="Scripts\Angular\Service\ClientService.js" />
+    <Content Include="Scripts\Angular\Service\CompanyAddressService.js" />
+    <Content Include="Scripts\Angular\Service\TaxTypeService.js" />
     <Content Include="Scripts\Angular\Service\InvoiceService.js" />
     <Content Include="Scripts\Angular\Service\PaymentService.js" />
     <Content Include="Scripts\Angular\Service\ServiceService.js" />
+    <Content Include="Scripts\Angular\Service\CurrencyService.js" />
     <Content Include="Scripts\Angular\Service\TypeOfServiceService.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
@@ -1463,12 +1469,15 @@
     <Compile Include="Controllers\AddEmployeesController.cs" />
     <Compile Include="Controllers\AddJobsController.cs" />
     <Compile Include="Controllers\AndersonPayController.cs" />
+    <Compile Include="Controllers\CompanyAddressController.cs" />
+    <Compile Include="Controllers\TaxTypeController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\CurrencyController.cs" />
     <Compile Include="Controllers\TypeOfServiceController.cs" />
     <Compile Include="EmailClass\SendEmail.cs" />
     <Compile Include="Global.asax.cs">
@@ -1555,6 +1564,7 @@
     <Content Include="Views\Payment\Create.cshtml" />
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\Payment\Update.cshtml" />
+    <Content Include="Views\Reports\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

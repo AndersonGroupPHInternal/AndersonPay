@@ -9,13 +9,22 @@
 
     function ServiceService($http) {
         return {
-            Read: Read
+            Read: Read,
+            ReadId: ReadId
         }
 
-        function Read(id) {
+        function Read() {
             return $http({
                 method: 'POST',
-                url: '/Service/Read/' + id,
+                url: '/Service/Read',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+        }
+
+        function ReadId(id) {
+            return $http({
+                method: 'POST',
+                url: '/Service/ReadId/' + id,
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             });
         }

@@ -64,7 +64,7 @@ namespace AndersonPayFunction
         {
             ETaxType returnETaxType = new ETaxType 
             {
-                Type = taxType.Type,
+                TaxTypes = taxType.TaxTypes,
                 TaxTypeId = taxType.TaxTypeId 
             };
             return returnETaxType;
@@ -74,7 +74,7 @@ namespace AndersonPayFunction
         {
             TaxType returnTaxType = new TaxType
             {
-                Type = eTaxType.Type,
+                TaxTypes = eTaxType.TaxTypes,
                 TaxTypeId = eTaxType.TaxTypeId
             };
             return returnTaxType;
@@ -84,7 +84,7 @@ namespace AndersonPayFunction
         {
             var returnTaxType = eTaxType.Select(a => new TaxType
             {
-                Type = a.Type,
+                TaxTypes = a.TaxTypes,
                 TaxTypeId = a.TaxTypeId
 
             });

@@ -67,6 +67,7 @@
     <Compile Include="EManpower.cs" />
     <Compile Include="EService.cs" />
     <Compile Include="EClientEmail.cs" />
+    <Compile Include="ECurrencyCode.cs" />
     <Compile Include="ETaxType.cs" />
     <Compile Include="EPayment.cs" />
     <Compile Include="ETypeOfService.cs" />

@@ -46,12 +46,17 @@ namespace AndersonPayFunction
             List<EInvoice> eInvoice = _iDInvoice.List<EInvoice>(a => true);
             return Invoice(eInvoice);
         }
+
+        public List<Invoice> ReadClientId(int clientId)
+        {
+            List<EInvoice> eInvoice = _iDInvoice.List<EInvoice>(a => a.ClientId == clientId);
+            return Invoice(eInvoice);
+        }
         #endregion
 
         #region UPDATE
         public Invoice Update(Invoice invoice)
         {
-            //_iDInvoice.Delete<EService>(a => a.InvoiceId == invoice.InvoiceId);
             var eInvoice = EInvoice(invoice);
             eInvoice.Services = null;
             eInvoice = _iDInvoice.Update(eInvoice);
@@ -62,7 +67,6 @@ namespace AndersonPayFunction
         #region DELETE
         public void Delete(int invoiceId)
         {
-            //_iDInvoice.Delete(EInvoice(invoice));
             _iDInvoice.Delete<EService>(a => a.InvoiceId == invoiceId);
             _iDInvoice.Delete<EInvoice>(a => a.InvoiceId == invoiceId);
         }
@@ -73,33 +77,13 @@ namespace AndersonPayFunction
         {
             EInvoice returnEInvoice = new EInvoice
             {
-
-                //GovernmentTax = invoice.GovernmentTax,
-                //gtholder = invoice.gtholder,
-                //lfholder = invoice.lfholder,
-                //totalTax = invoice.totalTax,
-                //whtholder = invoice.whtholder,
-                //invIdholder = invoice.invIdholder,
-                //Date = invoice.Date,
-                //DueDate = invoice.DueDate,
-                //ExpiringPeriod = invoice.ExpiringPeriod,
-                //StartPeriod = invoice.StartPeriod,
-                //Description = invoice.Description,
-                //LateFee = invoice.LateFee,
-                //Quantity = invoice.Quantity,
-                //Rate = invoice.Rate,
-                //Status = invoice.Status,
-                //TypeOfService = invoice.TypeOfService,
-
                 InvoiceId = invoice.InvoiceId,
                 Name = invoice.Name,
-                TaxTypes = invoice.TaxTypes,
+                TaxTypeId = invoice.TaxTypeId,
                 Subtotal = invoice.Subtotal,
                 AmountDue = invoice.AmountDue,
-                Currency = invoice.Currency,
+                CurrencyId = invoice.CurrencyId,
                 Tax = invoice.Tax,
-                //Comments = invoice.Comments,
-                //Recipients = invoice.Recipients,
                 Services = invoice.Services?.Select(a => new EService
                 {
                     Quantity = a.Quantity,
@@ -109,8 +93,7 @@ namespace AndersonPayFunction
                     InvoiceId = a.InvoiceId,
                     ServiceId = a.ServiceId,
                     TypeOfServiceId = a.TypeOfServiceId,
-
-                    Description = a.Description,
+                    
                     Comments = a.Comments
                 }).ToList() ?? null,
                 SINo = invoice.SINo,
@@ -118,7 +101,8 @@ namespace AndersonPayFunction
                 Address = invoice.Address,
                 ClientId = invoice.ClientId,
                 CreatedDate = invoice.CreatedDate,
-                DueDate = invoice.DueDate
+                DueDate = invoice.DueDate,
+                UpdatedDate = invoice.UpdatedDate
             };
             return returnEInvoice;
         }
@@ -128,38 +112,19 @@ namespace AndersonPayFunction
             Invoice returnInvoice = new Invoice
             {
 
-                //GovernmentTax = eInvoice.GovernmentTax,
-                //gtholder = eInvoice.gtholder,
-                //lfholder = eInvoice.lfholder,
-                //totalTax = eInvoice.totalTax,
-                //whtholder = eInvoice.whtholder,
-                //invIdholder = eInvoice.invIdholder,
-                //Date = eInvoice.Date,
-                //DueDate = eInvoice.DueDate,
-                //ExpiringPeriod = eInvoice.ExpiringPeriod,
-                //StartPeriod = eInvoice.StartPeriod,
-                //Name = eInvoice.Name,
-                //Description = eInvoice.Description,
-                //LateFee = eInvoice.LateFee,
-                //Quantity = eInvoice.Quantity,
-                //Rate = eInvoice.Rate,
-                //Status = eInvoice.Status,
-                //TypeOfService = eInvoice.TypeOfService,
-
                 InvoiceId = eInvoice.InvoiceId,
                 Name = eInvoice.Name,
                 Subtotal = eInvoice.Subtotal,
                 AmountDue = eInvoice.AmountDue,
-                TaxTypes = eInvoice.TaxTypes,
-                Currency = eInvoice.Currency,
+                TaxTypeId = eInvoice.TaxTypeId,
+                CurrencyId = eInvoice.CurrencyId,
                 Tax = eInvoice.Tax,
-                //Recipients = eInvoice.Recipients,
-                //Comments = eInvoice.Comments,
                 SINo = eInvoice.SINo,
                 TIN = eInvoice.TIN,
                 Address = eInvoice.Address,
                 ClientId = eInvoice.ClientId,
-                CreatedDate = eInvoice.CreatedDate
+                CreatedDate = eInvoice.CreatedDate,
+                UpdatedDate = eInvoice.UpdatedDate
             };
 
             return returnInvoice;
@@ -169,39 +134,19 @@ namespace AndersonPayFunction
         {
             var returnInvoice = eInvoice.Select(a => new Invoice
             {
-
-                //GovernmentTax = a.GovernmentTax,
-                //gtholder = a.gtholder,
-                //lfholder = a.lfholder,
-                //totalTax = a.totalTax,
-                //whtholder = a.whtholder,
-                //invIdholder = a.invIdholder,
-                //Date = a.Date,
-                //DueDate = a.DueDate,
-                //ExpiringPeriod = a.ExpiringPeriod,
-                //StartPeriod = a.StartPeriod,
-                //Name = a.Name,
-                //Description = a.Description,
-                //LateFee = a.LateFee,
-                //Quantity = a.Quantity,
-                //Rate = a.Rate,
-                //Status = a.Status,
-                //TypeOfService = a.TypeOfService,
-
                 InvoiceId = a.InvoiceId,
                 Name = a.Name,
                 AmountDue = a.AmountDue,
                 Subtotal = a.Subtotal,
-                TaxTypes = a.TaxTypes,
-                Currency = a.Currency,
+                TaxTypeId = a.TaxTypeId,
+                CurrencyId = a.CurrencyId,
                 Tax = a.Tax,
-                //Recipients = a.Recipients,
-                //Comments = a.Comments,
                 SINo = a.SINo,
                 TIN = a.TIN,
                 Address = a.Address,
                 ClientId = a.ClientId,
-                CreatedDate = a.CreatedDate
+                CreatedDate = a.CreatedDate,
+                UpdatedDate = a.UpdatedDate
 
             });
 

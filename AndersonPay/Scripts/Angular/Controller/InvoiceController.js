@@ -5,12 +5,14 @@
         .module('App')
         .controller('InvoiceController', InvoiceController);
 
-    InvoiceController.$inject = ['$filter', '$window', 'InvoiceService', 'ClientService', 'TypeOfServiceService', 'ServiceService'];
+    InvoiceController.$inject = ['$filter', '$window', 'InvoiceService', 'ClientService', 'TypeOfServiceService', 'ServiceService', 'CurrencyService', 'CompanyAddressService'];
 
-    function InvoiceController($filter, $window, InvoiceService, ClientService, TypeOfServiceService, ServiceService) {
+    function InvoiceController($filter, $window, InvoiceService, ClientService, TypeOfServiceService, ServiceService, CurrencyService, CompanyAddressService) {
         var vm = this;
 
         vm.ClientId;
+        vm.ClientName;
+        vm.InvoiceId;
         vm.Address;
 
         //object
@@ -24,78 +26,48 @@
             totaltax: 0,
             clientWithholdingTax: 0
         }
-        
-        vm.TryS = 123;
-        vm.AmountDueValue = 0;
-        vm.WithholdingTaxValue;
 
         //array
         vm.Invoices = [];
         vm.TypeOfServices = [];
         vm.Services = [];
+        vm.Currencies = [];
 
         //read
         vm.ReadForClients = ReadForClients;
         vm.ReadForTypeOfService = ReadForTypeOfService;
         vm.GoToUpdatePage = GoToUpdatePage;
-        vm.PDF = PDF;
+        vm.ReadForCurrencies = ReadForCurrencies;
 
         vm.Initialise = Initialise;
         vm.InitialiseCrud = InitialiseCrud;
         vm.Clients;
         vm.Delete = Delete;
 
-        //function create
         vm.CreateInvoiceService = CreateInvoiceService;
-        //function delete
         vm.deleteRow = deleteRow;
-        //function compute subtotal
         vm.Subtotal = Subtotal;
-        //function compute Total
         vm.TotalSales = TotalSales;
-        //function compute SalesTax
         vm.SalesTax = SalesTax;
-        //function compute withholdingTax
         vm.WithholdingTax = WithholdingTax;
-        //compute Amount Due
         vm.AmountDue = AmountDue;
-        //function others
         vm.InitialiseTypeOfService = InitialiseTypeOfService;
-        //function SINo
-        vm.SINo = SINo;
-        vm.TryF = TryF;
 
         function GoToUpdatePage(invoiceId) {
             $window.location.href = '../Invoice/Update/' + invoiceId;
         }
 
-        function TryF(taxu) {
-            //console.log(vm.TryS);
-            //vm.TryS = 23;
-            //console.log(vm.TryS +"----");
-
-            //console.log(taxu);
-            //AmountDue(taxu);
-
-            //console.log(vm.Invoices);
-            //console.log(vm.TypeOfServices);
-            console.log(vm.Services);
-            vm.TryS = 10;
-            //console.log(vm.Clients);
-        }
-
-        function Initialise(invoiceId) {
+        function Initialise() {
             Read();
+            ReadForClients();
         }
 
         function InitialiseCrud(clientId, invoiceId, address) {
             vm.ClientId = clientId;
+            vm.InvoiceId = invoiceId;
             vm.Address = address;
             ReadForClients();
             ReadCompanyBranch();
-            ReadForCurrency();
-            ReadForTaxType();
-            vm.AmountDueValue = 21;
             ReadForService(invoiceId);
         }
 
@@ -103,6 +75,12 @@
             InvoiceService.Read()
                 .then(function (response) {
                     vm.Invoices = response.data;
+                    ////////////////////////////////////////
+                    var invoice = $filter('filter')(vm.Invoices, { InvoiceId: vm.InvoiceId })[0];
+                    if (invoice)
+                        vm.Invoice = invoice;
+                    ///////////////////////////////////////
+                    ReadForCurrencies();
                 })
                 .catch(function (data, status) {
                     new PNotify({
@@ -130,7 +108,7 @@
             ClientService.Read()
                 .then(function (response) {
                     vm.Clients = response.data;
-                    var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId })[0];
+                    var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId})[0];
                     if (client)
                         vm.Client = client;
                 })
@@ -146,7 +124,6 @@
                 });
         }
 
-        //create row and column for computation of subtotal
         function CreateInvoiceService() {
             var service = angular.copy(vm.Service);
             vm.Services.push(service);
@@ -229,58 +206,29 @@
 
                 });
         }
-
-        //SIno
-        function SINo(SINoCode) {
-            var SINoCode = "";
-            return SINoCode;
-        }
-
-        function CompanyBranch(BranchCode) {
-            var BranchCode = "BCode";
-            return BranchCode;
-        }
-
-        //Branch Location This should be a separate table
+        
         function ReadCompanyBranch() {
-            vm.CompanyBranches = [
-            { Address: "11/F Wynsum Corporate Plaza, #22 F. Ortigas Jr. Road Ortigas Center,Pasig City Philippines ", CompanyAddress: 'WYNSUM', SINo: 'WNSM-', TIN: '0001' },
-            { Address: "20/F Robinsons Cybergate Tower 3, Pioneer Street, Mandaluyong City, Pioneer St, Mandaluyong, Metro Manila", CompanyAddress: 'CYBERGATE 3', SINo: 'CG3-', TIN: '0002' },
-            { Address: "Ecotower Building Unit 1504, 32nd Street corner 9th avenue Bonifacio Global City, Taguig City Philippines ", CompanyAddress: 'ECOTOWER', SINo: 'ECT-', TIN: '0003' },
+            CompanyAddressService.Read()
+                .then(function (response) {
+                    vm.CompanyBranches = response.data;
+                    var companyBranch = $filter('filter')(vm.CompanyBranches, { Address: vm.Address })[0];
+                    if (companyBranch)
+                        vm.CompanyBranch = companyBranch;
+                })
+                .catch(function (data, status) {
+                    new PNotify({
+                        title: status,
+                        text: data,
+                        type: 'error',
+                        hide: true,
+                        addclass: "stack-bottomright"
+                    });
 
-            ];
-            var companyBranch = $filter('filter')(vm.CompanyBranches, { Address: vm.Address })[0];
-            if (companyBranch)
-                vm.CompanyBranch = companyBranch;
-        }
-
-        function ReadForTaxType() {
-            vm.TaxTypes = [
-                { Type: "VAT" },
-                { Type: "NON-VAT" },
-                { Type: "ZERO RATED" },
-            ];
-        }
-
-        //Currency
-        function ReadForCurrency() {
-            vm.CurrencyCode = [
-                { Code: "USD" },
-                { Code: "GBP" },
-                { Code: "PHP" },
-            ];
-        }
-
-        //PFD get data
-        function PDF(invoiceId)
-        {
-            $window.location.href = '../Invoice/InvoiceSummary/' + invoiceId;
-            //$window.href = '..("InvoiceSummary", "Invoice")';
-            //$window.location.href = '@Url.Action("InvoiceSummary", "Invoice")';
+                })
         }
 
         function ReadForService(invoiceId) {
-            ServiceService.Read(invoiceId)
+            ServiceService.ReadId(invoiceId)
                 .then(function (response) {
                     vm.Services = response.data;
                     ReadForTypeOfService();
@@ -295,6 +243,30 @@
                     });
 
                 });
+        }
+
+        function ReadForCurrencies() {
+            CurrencyService.Read()
+                .then(function (response) {
+                    vm.Currencies = response.data;
+                    UpdateCurrency();
+                })
+                .catch(function (data, status) {
+                    new PNotify({
+                        title: status,
+                        text: data,
+                        type: 'error',
+                        hide: true,
+                        addclass: "stack-bottomright"
+                    });
+
+                });
+        }
+
+        function UpdateCurrency() {
+            angular.forEach(vm.Invoices, function (invoice) {
+                invoice.Currency = $filter('filter')(vm.Currencies, { CurrencyId: invoice.CurrencyId })[0];
+            });
         }
     }
 })();
