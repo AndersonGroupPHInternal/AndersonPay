@@ -36,6 +36,10 @@ namespace AndersonPayEntity
         public EClient Client { get; set; }
         public virtual ICollection<EService> Services { get; set; }
 
+        [ForeignKey("TaxType")]
+        public int TaxTypeId { get; set; }
+        public ETaxType TaxType { get; set; }
+
         public string Name { get; set; }
 
         public int TaxTypeId { get; set; }
