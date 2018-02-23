@@ -1,6 +1,8 @@
 ﻿using AndersonPayEntity;
 using AndersonPayFunction;
 using AndersonPayModel;
+using Rotativa;
+using Rotativa.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,6 +60,30 @@ namespace AndersonPay.Controllers
             invoice.TypeOfServices = typeOfServices;
             invoice.Currencies = currencies;
             return PartialView(invoice);
+        }
+
+        public ActionResult InvoicePDF(int id)
+        {
+            var invoice = _iFInvoice.Read(id);
+            var services = _iFService.Read(id);
+            var client = _iFClient.Read(invoice.ClientId);
+            var clients = _iFClient.ReadId(invoice.ClientId);
+            var typeOfServices = _iFTypeOfService.Read();
+            var currencies = _iFCurrencyCode.ReadCurrencyId(invoice.CurrencyId);
+            invoice.Client = client;
+            invoice.Clients = clients;
+            invoice.Services = services;
+            invoice.TypeOfServices = typeOfServices;
+            invoice.Currencies = currencies;
+
+            var viewAsPdf = new ViewAsPdf("~/Views/Invoice/InvoicePDF.cshtml", invoice)
+            {
+                FileName = client.Name + "-" + invoice.SINo + invoice.InvoiceId + ".pdf",
+                PageSize = Size.Letter,
+                PageOrientation = Orientation.Portrait,
+                PageMargins = { Left = 20, Right = 20, Top = 20, Bottom = 20 }
+            };
+            return (viewAsPdf);
         }
         // Read list of invoices
 

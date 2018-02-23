@@ -1,0 +1,116 @@
+@using AndersonPayModel;
+@model Invoice
+@{
+    Layout = "~/Views/Shared/_PDFLayout.cshtml";
+
+}
+
+<div class="form-group" style="background-color: white;">
+    <img class="logo" src="~/Content/assets/img/pdf-logo.jpg" style="float:left; height:auto; width:200px;">
+
+    <div class="include" align="right">
+        <br><br><br><br><br><br>
+        <h2 style="color: #3f5f82"><b>Billing Statement</b></h2>
+        <h3>Sales Invoice No. @Model.SINo@Model.InvoiceId</h3>
+    </div>
+
+
+    <div class="include2" width 100%;">
+        <br>
+        <h5><b>ANDERSON GROUP BPO INC.</b></h5>
+        <label style="font-size: 16px">TIN: @Model.TIN</label><br />
+        <label style="width:500px; font-size:15px">@Model.Address</label>
+    </div>
+
+    <div>
+        <span class="pdfCientName" style="float:right; font-size: 16px"> <b> Client : </b> @Model.Client.Name </span>
+    </div>
+    
+    <div>
+        <table id="tableData" class="table table-hover table-sm table-bordered ">
+            <thead>
+                <tr style="background-color:#0071C1; color:white">
+                    <th style="text-align:center">DESCRIPTION</th>
+                    <th style="text-align:center">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var service in Model.Services)
+                {
+                    foreach (var typeOfService in Model.TypeOfServices)
+                    {
+                        if (service.TypeOfServiceId == typeOfService.TypeOfServiceId)
+                        {
+                            <tr>
+                                <td style="font-size: 15px">
+                                    @typeOfService.Name - @typeOfService.Description (@service.Quantity x @service.Rate)
+                                </td>
+                                <td style="font-size: 15px">
+                                    @String.Format(@service.Subtotal % 1 == 0 ? "{0:N0}" : "{0:N2}", @service.Subtotal)
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+
+
+                <tr>
+                    <td style="font-size: 15px">Billing Period: @Model.CreatedDateNow</td>
+                    <td></td>
+                </tr>
+                <tr style="height: 5px">
+                    <td style="font-size: 15px">Due Date: @Model.DueDate</td>
+                    <td style="font-size: 15px"></td>
+                </tr>
+                <tr style="height: 40px">
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="height: 40px">
+                    <td style="font-size: 15px">Total</td>
+                    <td></td>
+                </tr>
+                <tr style="height: 40px">
+                    <td style="font-size: 15px">Sub-Total</td>
+                    <td style="font-size: 15px">@String.Format(@Model.Subtotal % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.Subtotal)</td>
+                </tr>
+                <tr style="height: 40px">
+                    <td style="font-size: 15px">Plus: 12% VAT</td>
+                    <td style="font-size: 15px" id="plusVAT">
+                        <script>
+                            var invoiceSubtotal = @Model.Subtotal;
+                            var z = 12 * invoiceSubtotal / 100;
+                            document.getElementById("plusVAT").innerHTML = z.toLocaleString();
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 15px">Less: @Model.Client.WithHoldingTax% Withholding TAX</td>
+                    <td style="font-size: 15px" id="lessWithholdingTax">@Model.Client.TaxType</td>
+                    <td style="display:none">
+                        <script>
+                            var invoiceSubtotal = @Model.Subtotal;
+                            var clientWithholdingTax = @Model.Tax;
+                            var y = clientWithholdingTax * invoiceSubtotal / 100;
+                            document.getElementById("lessWithholdingTax").innerHTML = y.toLocaleString();
+                        </script>
+                    </td>
+                </tr>
+                <tr style="height: 40px">
+                    <td style="font-size: 15px"><b>Total payable for this invoice</b></td>
+                    @foreach (var client in Model.Clients)
+                    {
+                        foreach (var currency in Model.Currencies)
+                        {
+                            if (client.CurrencyCodeId == currency.CurrencyId)
+                            {
+                                <td style="font-size: 15px"><b>@currency.CurrencyCodes</b> &nbsp; @String.Format(@Model.AmountDue % 1 == 0 ? "{0:N0}" : "{0:N2}", @Model.AmountDue) </td>
+                            }
+                        }
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

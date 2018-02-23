@@ -60,7 +60,7 @@ namespace AndersonPayContext
                 new ECompanyAddress
                 {
                     CompanyBranch = "WYNSUM",
-                    Address = "11/F Wynsum Corporate Plaza, #22 F. Ortigas Jr. Road Ortigas Center,Pasig City Philippines ",
+                    Address = "11/F Wynsum Corporate Plaza, #22 F. Ortigas Jr. Road Ortigas Center, Pasig City Philippines ",
                     SINo = "WNSM-",
                     TIN = "0001"
                 },
