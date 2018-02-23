@@ -47,7 +47,7 @@
                     <tr class="clickableRow" ng-repeat="payment in model.Payments" ng-click="$event.originalEvent.dropdown || model.GoToUpdatePage(payment.PaymentId)">
                         <td><span ng-bind="payment.Name"></span></td>
                         <td><span ng-bind="payment.DateOfPayment"></span></td>
-                        <td><span ng-bind="payment.AmountReceived"></span></td>
+                        <td><span ng-bind="payment.AmountReceived| number:2"></span></td>
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">

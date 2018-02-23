@@ -194,7 +194,7 @@
             if (change < 0) {
                 change = change * -1;
             }
-            return change;
+            return change.toFixed(2);
         }
 
         function TotalChange() {
