@@ -10,7 +10,5 @@ namespace AndersonPayEntity
         public int CurrencyId { get; set; }
 
         public string CurrencyCodes { get; set; }
-
-
     }
 }
