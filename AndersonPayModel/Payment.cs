@@ -9,6 +9,7 @@ namespace AndersonPayModel
         public int PaymentId { get; set; }
         public int ClientId { get; set; }
         public DateTime DateOfPayment { get; set; }
+        public DateTime DueDate { get; set; }
         public decimal AmountReceived { get; set; }
         public decimal Payments { get; set; }
         public decimal Discount { get; set; }

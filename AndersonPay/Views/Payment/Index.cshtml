@@ -15,6 +15,7 @@
                         <th>Name of Client</th>
                         <th>Date Of Payment</th>
                         <th>Amount Received</th>
+                        <th>Due Date </th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@
                         <td><span ng-bind="payment.Name"></span></td>
                         <td><span ng-bind="payment.DateOfPayment"></span></td>
                         <td><span ng-bind="payment.AmountReceived"></span></td>
+                        <td><span ng-bind="payment.DueDate"></span></td>
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
