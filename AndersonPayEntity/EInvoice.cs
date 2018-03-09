@@ -42,13 +42,13 @@ namespace AndersonPayEntity
 
         public string Name { get; set; }
 
-        public int TaxTypeId { get; set; }
-        public ETaxType TaxType { get; set; }
-
         public decimal Subtotal { get; set; }
         public string SINo { get; set; }
         public string TIN { get; set; }
         public string Address { get; set; }
+
+        [Column(TypeName = "DateTime2")]
+        public DateTime BillingPeriod { get; set; }
 
         [Column(TypeName = "DateTime2")]
         public DateTime? DueDate { get; set; }

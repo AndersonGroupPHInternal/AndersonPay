@@ -24,7 +24,8 @@ namespace AndersonPayModel
         public int TaxTypeId { get; set; }
         public string TIN { get; set; }
         public DateTime DueDate => CreatedDate.Value.AddDays(7);
-
+        public DateTime BillingPeriod { get; set; }
+        public string BillingPeriodNow => BillingPeriod.ToString();
         public Client Client { get; set; }
 
         public virtual List<Service> Services { get; set; }

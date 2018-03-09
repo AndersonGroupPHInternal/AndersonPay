@@ -57,7 +57,7 @@
 
 
                 <tr>
-                    <td style="font-size: 15px">Billing Period: </td>
+                    <td style="font-size: 15px">Billing Period: @Model.BillingPeriod</td>
                     <td></td>
                 </tr>
                 <tr style="height: 5px">
@@ -87,7 +87,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-size: 15px">Less: @Model.Client.WithHoldingTax% Withholding TAX</td>
+                    <td style="font-size: 15px">Less: @Model.Client.WithHoldingTax% Withholding Tax</td>
                     <td style="font-size: 15px; text-align:right" id="lessWithholdingTax">@Model.Client.TaxType</td>
                     <td style="display:none">
                         <script>

@@ -172,7 +172,7 @@
                 total = 0;
             return total;
         }
-        function Balance(invoiceAmountDue, invoice) {
+        function Balance(invoiceAmountDue, invoice) { //table
             var balance = 0;
             balance = invoiceAmountDue - Payment(invoice);
             if (balance < 0) {
@@ -181,17 +181,27 @@
             return balance;
         }
 
-        function TotalBalance() {
+        function TotalBalance() { 
             var totalBalance = 0;
             return totalBalance;
         }
 
-        function AmountDue() {
+        function AmountDue(invoiceAmountDue, invoice) { //table
             var amountDue = 0;
+            amountDue = invoiceAmountDue;
             return amountDue;
         }
+
+        function TotalAmountDue(invoice) {
+            //var TotalAD = 0;
+            //angular.forEach(vm.Invoices, function(invoice) {
+              //  TotalAD += TotalAmountDue(invoice);
+            //});
+            //if (!TotalAD)
+              //  TotalAD = 0;
+        }
         
-        function Change(invoiceAmountDue, invoice) {
+        function Change(invoiceAmountDue, invoice) { //table
             var change = 0;
             change = invoiceAmountDue - Payment(invoice);
             if (change > 0) {
