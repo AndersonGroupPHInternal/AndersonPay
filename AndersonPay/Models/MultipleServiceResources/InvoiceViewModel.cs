@@ -1,4 +1,5 @@
-﻿using AndersonPayEntity;
+﻿
+using AndersonPayEntity;
 using System.Collections.Generic;
 
 namespace AndersonPay.Models

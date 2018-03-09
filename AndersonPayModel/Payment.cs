@@ -8,8 +8,15 @@ namespace AndersonPayModel
     {
         public int PaymentId { get; set; }
         public int ClientId { get; set; }
+
         public DateTime DateOfPayment { get; set; }
+        public string DateOfPaymentNow => DateOfPayment.ToString();
+
+        //public DateTime DueDate { get; set; }
+        //public string DueDateNow => DueDate.ToString();
+
         public decimal AmountReceived { get; set; }
+        //public decimal AmountDue { get; set; }
         public decimal Payments { get; set; }
         public decimal Discount { get; set; }
         public decimal Balance { get; set; }

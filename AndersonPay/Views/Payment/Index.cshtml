@@ -1,31 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-@*<style> Moved to site
-    .pageTService {
-        background-color: white;
-        margin: 0px;
-        padding: 10px;
-        padding-top: 20px;
-        height: auto;
-    }
-
-    tr.thead-inverse {
-        background-color: #465A65;
-        color: white;
-    }
-
-    a.btn-default:hover {
-        background-color: #0c7cd5;
-        color: white;
-    }
-
-    a.btn-default {
-        background-color: #2196F3;
-        color: white;
-    }
-</style>*@
-
 <div class="page_Index_Payment"ng-controller="PaymentController as model" ng-init="model.Initialise()">
     <div class="row">
         <div class="col-sm-4">
@@ -40,14 +15,16 @@
                         <th>Name of Client</th>
                         <th>Date Of Payment</th>
                         <th>Amount Received</th>
+                        @*<th>Due Date </th>*@
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="clickableRow" ng-repeat="payment in model.Payments" ng-click="$event.originalEvent.dropdown || model.GoToUpdatePage(payment.PaymentId)">
-                        <td><span ng-bind="payment.Name"></span></td>
-                        <td><span ng-bind="payment.DateOfPayment"></span></td>
-                        <td><span ng-bind="payment.AmountReceived"></span></td>
+                        <td><center><span ng-bind="payment.Name"></span></center></td>
+                        <td><center><span ng-bind="payment.DateOfPaymentNow"></span></center></td>
+                        <td><center><span ng-bind="payment.AmountReceived| number:2"></span></center></td>
+                        @*<td><span ng-bind="payment.DueDateNow"></span></td>*@
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">

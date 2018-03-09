@@ -18,9 +18,7 @@
         vm.TaxTypes = [];
 
         vm.GoToUpdatePage = GoToUpdatePage;
-
         vm.Initialise = Initialise;
-
         vm.Delete = Delete;
         vm.ReadForCurrency = ReadForCurrency;
         vm.UpdateCurrency = UpdateCurrency;

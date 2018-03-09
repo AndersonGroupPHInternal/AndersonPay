@@ -20,16 +20,18 @@
                         <th>Currency</th>
                         <th>Tax</th>
                         <th>Amount Due</th>
+                        <th>Billing Period</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="clickableRow" ng-repeat="invoice in model.Invoices" ng-click="$event.originalEvent.dropdown || model.GoToUpdatePage(invoice.InvoiceId)">
-                        <td><span ng-bind="invoice.CreatedDateNow"></span></td>
-                        <td><span ng-bind="invoice.Name"></span></td>
-                        <td><span ng-bind="invoice.Currency.CurrencyCodes"></span></td>
-                        <td><span ng-bind="invoice.Tax| number:2"></span></td>
-                        <td><span ng-bind="invoice.AmountDue| number:2"></span></td>
+                        <td><center><span ng-bind="invoice.CreatedDateNow"></span></center></td>
+                        <td><center><span ng-bind="invoice.Name"></span></center></td>
+                        <td><center><span ng-bind="invoice.Currency.CurrencyCodes"><</span></center></td>
+                        <td><center><span ng-bind="invoice.Tax| number:2"></span></center></td>
+                        <td><center><span ng-bind="invoice.AmountDue| number:2"></span></center></td>
+                        <td><center><span ng-bind="invoice.BillingPeriodNow"></span></center></td>
 
                         <td ng-click="$event.originalEvent.dropdown = true">
                             <div class="dropdown">
@@ -50,7 +52,8 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="#" ng-click="model.GoToUpdatePage(invoice.InvoiceId)">Edit</a></li>
                                     <li><a href="#" ng-click="model.Delete(invoice.InvoiceId)">Delete</a></li>
-                                    <li><a ng-href="~/Invoice/InvoiceSummary/{{invoice.InvoiceId}}" href="@Url.Action("InvoiceSummary", "Invoice")" data-toggle="modal" data-target="#myModal">PDF</a></li>
+                                    @*<li><a ng-href="~/Invoice/InvoiceSummary/{{invoice.InvoiceId}}" href="@Url.Action("InvoiceSummary", "Invoice")" data-toggle="modal" data-target="#myModal">PDF</a></li>*@
+                                    <li><a href="#" ng-href="~/Invoice/InvoicePDF/{{invoice.InvoiceId}}">PDF</a></li>
                                 </ul>
                             </div>
                         </td>

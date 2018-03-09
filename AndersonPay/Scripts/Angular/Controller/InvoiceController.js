@@ -61,7 +61,6 @@
             Read();
             ReadForClients();
         }
-
         function InitialiseCrud(clientId, invoiceId, address) {
             vm.ClientId = clientId;
             vm.InvoiceId = invoiceId;

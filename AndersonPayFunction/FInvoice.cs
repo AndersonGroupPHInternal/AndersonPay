@@ -4,7 +4,6 @@ using AndersonPayEntity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Diagnostics;
 
 namespace AndersonPayFunction
 {
@@ -102,7 +101,8 @@ namespace AndersonPayFunction
                 ClientId = invoice.ClientId,
                 CreatedDate = invoice.CreatedDate,
                 DueDate = invoice.DueDate,
-                UpdatedDate = invoice.UpdatedDate
+                UpdatedDate = invoice.UpdatedDate,
+                BillingPeriod = invoice.BillingPeriod
             };
             return returnEInvoice;
         }
@@ -124,7 +124,8 @@ namespace AndersonPayFunction
                 Address = eInvoice.Address,
                 ClientId = eInvoice.ClientId,
                 CreatedDate = eInvoice.CreatedDate,
-                UpdatedDate = eInvoice.UpdatedDate
+                UpdatedDate = eInvoice.UpdatedDate,
+                BillingPeriod = eInvoice.BillingPeriod
             };
 
             return returnInvoice;
@@ -146,7 +147,8 @@ namespace AndersonPayFunction
                 Address = a.Address,
                 ClientId = a.ClientId,
                 CreatedDate = a.CreatedDate,
-                UpdatedDate = a.UpdatedDate
+                UpdatedDate = a.UpdatedDate,
+                BillingPeriod = a.BillingPeriod
 
             });
 
