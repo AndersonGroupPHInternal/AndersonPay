@@ -159,7 +159,7 @@
                                 <td style="border:none"></td>
                                 <td style="border:none"></td>
                                 <td style="border:none"><h5><i><b><span>Amount Due:</span></b></i></h5></td>
-                                <td style="border:none"><h5><i><b><span>{{model.Client.CurrencyCode}}</span> <span ng-bind="model.AmountDue(model.Client.WithHoldingTax)| number:2"></span></b></i></h5></td>
+                                <td style="border:none"><h5><i><b><span ng-bind="model.Client.Currency.CurrencyCodes"></span>&nbsp;<span ng-bind="model.AmountDue(model.Client.WithHoldingTax)| number:2"></span></b></i></h5></td>
                                 <td style="border:none"></td>
                             </tr>
 
