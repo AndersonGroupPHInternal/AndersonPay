@@ -30265,7 +30265,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
           var selectValue = getTrackByValueFn(value, locals);
           watchedArray.push(selectValue);
 
-          // Only need to watch the displayFn if there is a specific label expression
+          // Only need to watch the displayFn if there is  a specific label expression
           if (match[2] || match[1]) {
             var label = displayFn(scope, locals);
             watchedArray.push(label);

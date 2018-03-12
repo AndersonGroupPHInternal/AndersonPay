@@ -105,7 +105,8 @@
         }
 
         function UpdateTaxType() {
-            angular.forEach(vm.Clients, function (taxType) {
+            angular.forEach(vm.Clients, function (taxType)
+            {
                 taxType.TaxType = $filter('filter')(vm.TaxTypes, { TaxTypeId: taxType.TaxTypeId })[0];
             });
         }
