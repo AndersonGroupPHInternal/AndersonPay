@@ -17,10 +17,8 @@
 
         <div class="alignContent">
 
-           
             <div class="floatL" style="float:left">
                 <div>
-
                     <label for="TIN" id="TIN">TIN: <u>{{model.CompanyBranch.TIN}}</u></label><br>
                     <input type="hidden" class="form-control" id="TIN" name="invoice.TIN" value="{{model.CompanyBranch.TIN}}">
                 </div>
@@ -35,6 +33,10 @@
                             <span ng-bind="companyBranch.CompanyBranch"></span>
                         </ui-select-choices>
                     </ui-select>
+                </div>
+                <div class="form-group">
+                    <label for="BillingPeriod">Billing Period: </label>
+                    <input type="date" class="form-control" id="invoice.BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="@Model.BillingPeriod">
                 </div>
             </div>
             <br>
@@ -165,6 +167,7 @@
 
 
                     </table>
+
                     <input type="hidden" class="form-control" id="invoice.AmountDue" readonly="readonly" name="invoice.AmountDue" value="{{model.AmountDue(model.Client.WithHoldingTax)}}">
                     <input type="hidden" class="form-control" id="invoice.Subtotal" readonly="readonly" name="invoice.Subtotal" value="{{model.TotalSales()}}">
                     <br />

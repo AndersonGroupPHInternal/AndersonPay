@@ -48,6 +48,9 @@ namespace AndersonPayEntity
         public string Address { get; set; }
 
         [Column(TypeName = "DateTime2")]
+        public DateTime BillingPeriod { get; set; }
+
+        [Column(TypeName = "DateTime2")]
         public DateTime? DueDate { get; set; }
         public int NumberOfDelays { get; set; }
         public decimal Interest { get; set; }
