@@ -31,6 +31,7 @@
         vm.Invoices = [];
         vm.TypeOfServices = [];
         vm.Services = [];
+        vm.Clients = [];
         vm.Currencies = [];
 
         //read
@@ -107,7 +108,8 @@
             ClientService.Read()
                 .then(function (response) {
                     vm.Clients = response.data;
-                    var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId})[0];
+                    var client = $filter('filter')(vm.Clients, { ClientId: vm.ClientId })[0];
+                    ReadForCurrencies();
                     if (client)
                         vm.Client = client;
                 })
@@ -265,6 +267,10 @@
         function UpdateCurrency() {
             angular.forEach(vm.Invoices, function (invoice) {
                 invoice.Currency = $filter('filter')(vm.Currencies, { CurrencyId: invoice.CurrencyId })[0];
+            });
+
+            angular.forEach(vm.Clients, function (client) {
+                client.Currency = $filter('filter')(vm.Currencies, { CurrencyId: client.CurrencyCodeId })[0];
             });
         }
     }
