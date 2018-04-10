@@ -41,7 +41,7 @@ namespace AndersonPayFunction
 
         public List<TypeOfService> Read()
         {
-            List<ETypeOfService> eTypeOfService = _iDTypeOfService.List<ETypeOfService>(a => true);
+            List<ETypeOfService> eTypeOfService = _iDTypeOfService.Read();
             return TypeOfService(eTypeOfService);
         }
         #endregion
@@ -91,7 +91,20 @@ namespace AndersonPayFunction
             {
                 TypeOfServiceId = a.TypeOfServiceId,
                 Description = a.Description,
-                Name = a.Name
+                Name = a.Name,
+
+                Services = a.Services?.Select(b =>
+                    new Service
+                    {
+                        Quantity = b.Quantity,
+                        Rate = b.Rate,
+
+                        InvoiceId = b.InvoiceId,
+                        ServiceId = b.ServiceId,
+                        TypeOfServiceId = b.TypeOfServiceId,
+
+                        Comments = b.Comments,
+                    }).ToList()
             });
 
             return returnTypeOfService.ToList();

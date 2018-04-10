@@ -77,7 +77,7 @@ namespace AndersonPayContext
                 {
                     CompanyBranch = "ECOTOWER",
                     Address = "Ecotower Building Unit 1504, 32nd Street corner 9th avenue Bonifacio Global City, Taguig City Philippines",
-                    SINo = "ECT-",
+                    SINo =  "ECT-",
                     TIN = "009-490-545-00000"
                 }
             };
