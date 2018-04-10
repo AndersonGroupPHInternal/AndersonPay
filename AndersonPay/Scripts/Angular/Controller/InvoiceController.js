@@ -39,12 +39,10 @@
         vm.ReadForTypeOfService = ReadForTypeOfService;
         vm.GoToUpdatePage = GoToUpdatePage;
         vm.ReadForCurrencies = ReadForCurrencies;
-
         vm.Initialise = Initialise;
         vm.InitialiseCrud = InitialiseCrud;
         vm.Clients;
         vm.Delete = Delete;
-
         vm.CreateInvoiceService = CreateInvoiceService;
         vm.deleteRow = deleteRow;
         vm.Subtotal = Subtotal;
@@ -60,6 +58,7 @@
 
         function Initialise() {
             Read();
+            ReadForTypeOfService ();
             ReadForClients();
         }
         function InitialiseCrud(clientId, invoiceId, address) {
@@ -75,11 +74,10 @@
             InvoiceService.Read()
                 .then(function (response) {
                     vm.Invoices = response.data;
-                    ////////////////////////////////////////
                     var invoice = $filter('filter')(vm.Invoices, { InvoiceId: vm.InvoiceId })[0];
                     if (invoice)
                         vm.Invoice = invoice;
-                    ///////////////////////////////////////
+                
                     ReadForCurrencies();
                 })
                 .catch(function (data, status) {
@@ -114,7 +112,7 @@
                         vm.Client = client;
                 })
                 .catch(function (data, status) {
-                    new PNotify({
+                    new PNotify({   
                         title: status,
                         text: data,
                         type: 'error',
@@ -132,6 +130,8 @@
 
         function InitialiseTypeOfService(typeOfServices) {
             InvoiceService.List()
+
+
                 .then(function (response) {
                     vm.TypeOfService = response.data;
                 })

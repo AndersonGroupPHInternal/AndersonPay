@@ -1,7 +1,7 @@
 ﻿using AndersonPayEntity;
 using AndersonPayFunction;
 using AndersonPayModel;
-using Rotativa;
+using Rotativa;  
 using Rotativa.Options;
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Web.Mvc;
 namespace AndersonPay.Controllers
 {
     public class InvoiceController : Controller
-    {
+    {   
         // GET: Invoice
         private IFClient _iFClient;
         private IFInvoice _iFInvoice;
@@ -129,7 +129,7 @@ namespace AndersonPay.Controllers
         }
         #endregion
 
-        //Delete Invoice
+        //Delete Invoice 
         #region Delete
         [HttpDelete]
         public JsonResult Delete(int id)

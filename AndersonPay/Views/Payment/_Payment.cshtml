@@ -41,9 +41,13 @@
                 <input type="date" class="form-control" id="payment.DueDate" name="payment.DueDate" placeholder="Due Date" value="@Model.DueDate">*@
             </div>
             
-            <div align="right">
-                <label for="BankReference" >Bank Reference</label><br>
-                <label for="ORno" >OR No.</label>
+            <div align="right"  >
+               <div  style="width: 57.50%; float:left; top:-30%;">
+                <label for="BankReference">Bank Reference:</label><br>
+                </div>
+                   <input type="text" ;/>
+                <label for="ORno">OR No.</label>
+                <input type="text" />
             </div>
          
         </div>
@@ -56,7 +60,7 @@
                     <th width="20%"><center>Payment</center></th>
                     <th width="20%"><center>Discount</center></th>
                     <th width="20%"><center>Amount Due</center></th>
-                    <th width="20%"><center>Balance</center></th>
+                    <th width="20%"><center>Balance</center></th>    
                     <th width="20%"><center>Change</center></th>
                 </tr>
             </thead>
@@ -87,19 +91,20 @@
                 </tr>
             </tbody>
         </table>
-        <div class="form-group" style="text-align:left;">
-            <label for="AmountDue">Total Amount Due: <span ng-bind="model.AmountDue()| number:2"></span></label>
+        <div class="form-group" style="text-align:left;"ng-repeat="invoice in model.Invoices track by $index">
+            <label for="AmountDue">Total Amount Due: <span ng-bind="model.AmountDue(invoice.AmountDue, invoice)| number:2"></span></label>
             <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountDue" value="{{model.AmountDue}}">
         </div>
-        <div class="form-group">
+        <div class="form-group"ng-repeat="invoice in model.Invoices track by $index">
             <label for="TotalAmountReceived">Total Amount Received: <span ng-bind="model.TotalAmountReceived(invoice)| number:2"></span></label>
             <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountReceived" value="{{model.TotalAmountReceived(invoice)}}">
         </div>
-        <div class="form-group">
-            <label for="TotalChange">Total Change: <span ng-bind="model.TotalChange()| number:2"></span></label>
+        <div class="form-group"ng-repeat="invoice in model.Invoices track by $index">
+            <label for="TotalChange">Total Change:  <span ng-bind="model.Change(invoice.AmountDue, invoice)| number:2"></span></label>
+            <input type="hidden" class="form-control" id="PaymentId" name="payment.TotalChange" value="{{model.Change(invoice)}}">
         </div>
-        <div class="form-group">
-            <label for="TotalBalance">Total Balance: <span ng-bind="model.TotalBalance()| number:2"></span></label>
+        <div class="form-group"ng-repeat="invoice in model.Invoices track by $index">
+            <label for="TotalBalance">Total Balance:  <span ng-bind="model.Balance(invoice.AmountDue, invoice)| number:2"></span></label>
             <input type="hidden" class="form-control" id="PaymentId" name="payment.Balance" value="{{model.TotalBalance}}">
         </div>
         <div class="form-group"> 
