@@ -8,9 +8,9 @@
             <div class="form-group" align="right" style="padding-top:50px;">
                 <input type="hidden" readonly="readonly" class="form-control" id="CreatedDate" name="CreatedDate" placeholder="CreatedDate" value="@Model.CreatedDate">
                 <input type="hidden" readonly="readonly" class="form-control" id="DueDate" name="DueDate" placeholder="DueDate">
-                <label for="SINo">SI No: </label>
-                <label id="SINo"><u>{{model.CompanyBranch.SINo}}</u></label><br>
-                <input type="hidden" readonly="readonly" class="form-group" id="SINo" name="invoice.SINo" value="{{model.CompanyBranch.SINo}}">
+                <label for="SINo">No: </label>
+                <label id="SINo"></label>
+                <input type="text" class="form-group" id="SINoSI No:" name="invoice.SINo" value="{{model.SINo}}">
                 <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
             </div>
         </div>

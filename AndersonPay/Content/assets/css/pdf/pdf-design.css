@@ -8,10 +8,13 @@
 }
 
 /* heading */
+body {
+    background-color: white;
+}
 
 img {
     width: 180px;
-    height: 200px;
+    height: 150px;
     margin-left: 28px;
     float: left;
 }
@@ -105,14 +108,4 @@ th {
     margin-left: 120px;
 }
 
-/*signature*/
-.Signatory {
-    float: right;
-    margin-top: 135px;
-    margin-right: 6%;
-    font-size: 17.5px;
-}
-
-.SignFooter {
-    margin-left: 80px;
-}
+/
