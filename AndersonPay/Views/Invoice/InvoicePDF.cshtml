@@ -5,113 +5,133 @@
 
 }
 
-<div class="form-group" style="background-color: white;">
-    <img class="logo" src="~/Content/assets/img/pdf-logo.jpg" style="float:left; height:auto; width:200px;">
+<div class="bgbody" style=" background-color: white; height: 100%; width: 100%">
+    <div class="form-group" style="background-color: white; font-family:Calibri; ">
+        <img class="logo" src="~/Content/assets/img/pdf-logo.jpg" style="float:left; height:130px; width:115px;">
 
-    <div class="include" align="right">
-        <br><br><br><br><br><br>
-        <h2 style="color: #3f5f82"><b>Billing Statement</b></h2>
-        <h3>Sales Invoice No. @Model.SINo@Model.InvoiceId</h3>
-    </div>
+        <div class="include" align="right" style="font-size: 11px; font-family: Calibri;">
+            <br /><br />
+            <h5 style="color: #3f5f82"><b style="font-size: 18px; font-family: Calibri;">BILLING STATEMENT</b></h5>
+            <h3> No. @Model.SINo@Model.InvoiceId</h3>
+        </div>
 
 
-    <div class="include2" width 100%;">
-        <br>
-        <h5><b>ANDERSON GROUP BPO INC.</b></h5>
-        <label style="font-size: 16px">TIN: @Model.TIN</label><br />
-        <label style="width:500px; font-size:15px">@Model.Address</label>
-    </div>
 
-    <div style="float:right; text-align:right">
-        <label style="width:500px; font-size:15px">@Model.CreatedDateNow</label><br>
-        <span class="pdfCientName" style="font-size: 16px">@Model.Client.Name </span>
-    </div>
-    
-    <div>
-        <table id="tableData" class="table table-hover table-sm table-bordered ">
-            <thead>
-                <tr style="background-color:#0071C1; color:white">
-                    <th style="text-align:center">DESCRIPTION</th>
-                    <th style="text-align:center">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="include2" style=" width:50%; float:left; font-family: Calibri;">
+            <h5 style="font-size :12px; "><b>ANDERSON GROUP BPO INC.</b></h5>
+            <label style="width:150px; font-size: 11px;  ">Address: @Model.Address</label><br />
+            <label style=" font-size:11px">Vat Reg. TIN: @Model.TIN</label>
+        </div>
 
-                @foreach (var service in Model.Services)
-                {
-                    foreach (var typeOfService in Model.TypeOfServices)
+        <div class="include5" style="text-align: right; width:50%; margin-top:10px; float: left;" font-size:11px; font-family: Calibri;">
+            <label style="width:150px; font-size :15px">@Model.CreatedDateNow</label><br />
+            <span class="pdfCientName" style="font-size: 14px;">@Model.Client.Name </span> <br />
+            <span class="pdfCientName" style="font-size: 11px;">@Model.Client.Address </span> <br />
+            <span class="pdfCientName" style="font-size: 11px;">VAT Reg. TIN @Model.Client.RegistrationNo</span><br />
+        </div>
+
+        <div>
+            <table id="tableData" class="table table-hover table-sm table-bordered ">
+                <thead>
+                    <tr style="background-color:#0071C1; color:white; font-family: Calibri;">
+                        <th style="text-align:center">DESCRIPTION</th>
+                        <th style="text-align:center">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var service in Model.Services)
                     {
-                        if (service.TypeOfServiceId == typeOfService.TypeOfServiceId)
+                        foreach (var typeOfService in Model.TypeOfServices)
                         {
-                            <tr>
-                                <td style="font-size: 15px">
-                                    @typeOfService.Name - @typeOfService.Description (@String.Format("{0:0}" ,@service.Quantity) x @String.Format("{0:0,0.00}",@service.Rate))
-                                </td>
-                                <td style="font-size: 15px; text-align:right">
-                                    @String.Format("{0:0,0.00}", @service.Subtotal)
-                                </td>
-                            </tr>
+                            if (service.TypeOfServiceId == typeOfService.TypeOfServiceId)
+                            {
+                                <tr>
+                                    <td style="font-size: 11px;">
+                                        @typeOfService.Name - @typeOfService.Description (@String.Format("{0:0}", @service.Quantity) x @String.Format("{0:0,0.00}", @service.Rate)) &mdash; @service.Comments
+
+                                    </td>
+                                    <td style="font-size: 11px; text-align:right;">
+                                        @String.Format("{0:0,0.00}", @service.Subtotal)
+                                    </td>
+                                </tr>
+                            }
                         }
                     }
-                }
 
 
-                <tr>
-                    <td style="font-size: 15px">Billing Period: @Model.BillingPeriod</td>
-                    <td></td>
-                </tr>
-                <tr style="height: 5px">
-                    <td style="font-size: 15px">Due Date: @Model.DueDate</td>
-                    <td style="font-size: 15px"></td>
-                </tr>
-                <tr style="height: 40px">
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr style="height: 40px">
-                    <td style="font-size: 15px">Total</td>
-                    <td></td>
-                </tr>
-                <tr style="height: 40px">
-                    <td style="font-size: 15px">Sub-Total</td>
-                    <td style="font-size: 15px; text-align:right">@String.Format("{0:0,0.00}", @Model.Subtotal)</td>
-                </tr>
-                <tr style="height: 40px">
-                    <td style="font-size: 15px">Plus: 12% VAT</td>
-                    <td style="font-size: 15px; text-align:right" id="plusVAT">
-                        <script>
+                    <tr>
+                        <td style="font-size: 11px; font-family: Calibri;">Billing Period: @Model.BillingPeriod</td>
+                        <td></td>
+                    </tr>
+                    <tr style="height: 5px; font-family: Calibri;">
+                        <td style="font-size: 11px;">Due Date: @Model.DueDate</td>
+                        <td style="font-size: 11px"></td>
+                    </tr>
+                    <tr style="height: 20px">
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="height: 20px; font-family: Calibri;">
+                        <td style="font-size: 11px">Total</td>
+                        <td style="font-size: 11px; text-align:right">@String.Format("{0:0,0.00}", @Model.Subtotal)</td>
+                    </tr>
+                    <tr style="height:20px; font-family: Calibri;">
+                        <td style="font-size: 11px">Plus: 12% VAT</td>
+                        <td style="font-size: 11px; text-align:right" id="plusVAT">
+                            <script>
                             var invoiceSubtotal = @Model.Subtotal;
                             var z = 12 * invoiceSubtotal / 100;
                             document.getElementById("plusVAT").innerHTML = z.toFixed(2);
-                        </script>
-                    </td>
-                </tr>
-                <tr>
-                    <td style="font-size: 15px">Less: @Model.Client.WithHoldingTax% Withholding Tax</td>
-                    <td style="font-size: 15px; text-align:right" id="lessWithholdingTax">@Model.Client.TaxType</td>
-                    <td style="display:none">
-                        <script>
+                            </script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 11px; font-family: Calibri;">Less: @Model.Client.WithHoldingTax% Withholding Tax</td>
+                        <td style="font-size: 11px;font-family: Calibri; text-align:right" id="lessWithholdingTax">@Model.Client.TaxType</td>
+                        <td style="display:none">
+                            <script>
                             var invoiceSubtotal = @Model.Subtotal;
                             var clientWithholdingTax = @Model.Tax;
                             var y = clientWithholdingTax * invoiceSubtotal / 100;
                             document.getElementById("lessWithholdingTax").innerHTML = y.toFixed(2);
-                        </script>
-                    </td>
-                </tr>
-                <tr style="height: 40px">
-                    <td style="font-size: 15px"><b>Total payable for this invoice</b></td>
-                    @foreach (var client in Model.Clients)
-                    {
-                        foreach (var currency in Model.Currencies)
+                            </script>
+                        </td>
+                    </tr>
+                    <tr style="height:40px; font-family: Calibri;">
+                        <td style="font-size: 11px"><b>Total payable for this invoice</b></td>
+                        @foreach (var client in Model.Clients)
                         {
-                            if (client.CurrencyCodeId == currency.CurrencyId)
+                            foreach (var currency in Model.Currencies)
                             {
-                                <td style="font-size: 15px; text-align:right"><b>@currency.CurrencyCodes</b> &nbsp; @String.Format("{0:0,0.00}", @Model.AmountDue) </td>
+                                if (client.CurrencyCodeId == currency.CurrencyId)
+                                {
+                                    <td style="font-size: 11px; text-align:right; font-family: Calibri;"><b>@currency.CurrencyCodes</b> &nbsp; @String.Format("{0:0,0.00}", @Model.AmountDue) </td>
+                                }
                             }
                         }
-                    }
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="include3" style="background-color:white;width: 50%;height: 200px;float: left;  padding-top: 10px; padding-left: 10px; font-size:11px; font-family: Calibri;">
+                <b><u>BANK DETAILS</b></u><br /> <br />
+                ACCOUNT NAME: &nbsp; ANDERSON GROUP BPO, INC.<br />
+                ACCOUNT NUMBER:  &nbsp;(PHP) 0081-6800-4451<br />
+                BANK NAME:&nbsp; BDO Unibank, Inc.<br />
+                BANK ADDRESS:&nbsp;BDO Corporate Center <br />7899 Makati Avenue, Makati City 0726 Philippines<br />
+                SWIFT CODE:&nbsp; BNORPHMM<br />
+            </div>
+
+            <div class="include4" style="background-color:white;width: 50%;height: 200px;float: left; padding-top: 30px; padding-left: 10px; font-size:11px; font-family: Calibri;">
+                <center><b>FOR ANDERSON GROUP BPO</b></center>
+                <br />
+                <center><span style="border-bottom: 1px solid black; font-family: Calibri;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAH  ANDRES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><b></b></center>
+                <center><b>Authorized Signatory</b></center>
+            </div>
+
+            <h4 style="font-size:11px; text-align: center; font-family: Calibri; ">  “THIS DOCUMENT IS NOT VALID FOR CLAIMING INPUT TAXES” </h4>
+        </div>
     </div>
 </div>
