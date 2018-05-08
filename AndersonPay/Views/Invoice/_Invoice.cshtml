@@ -10,7 +10,7 @@
                 <input type="hidden" readonly="readonly" class="form-control" id="DueDate" name="DueDate" placeholder="DueDate">
                 <label for="SINo">No: </label>
                 <label id="SINo"></label>
-                <input type="text" class="form-group" id="SINoSI No:" name="invoice.SINo" value="{{model.SINo}}">
+                <input type="text" class="form-group" id="SINoSI No:" name="invoice.SINo" value="{{model.SINo}}" required>
                 <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
             </div>
         </div>
@@ -103,16 +103,16 @@
 
                                 <td>
                                     <!--Comment-->
-                                    <input type="text" autocomplete="off" class="form-control" id="invoice.Services[{{$index}}].Comments" name="invoice.Services[{{$index}}].Comments" placeholder="Comment" value="{{service.Comments}}">
+                                    <input class="form-control" type="text" placeholder="Comment" autocomplete="off" id="invoice.Services[{{$index}}].Comments" name="invoice.Services[{{$index}}].Comments" value="{{service.Comments}}" required>
                                 </td>
                                 <!-- Quantity -->
                                 <td>
-                                    <input class="form-control" type="number" name="invoice.Services[{{$index}}].Quantity" ng-model="service.Quantity" placeholder="1" min="1" />
+                                    <input class="form-control" type="number" placeholder="1" min="1" name="invoice.Services[{{$index}}].Quantity" ng-model="service.Quantity" required>
                                 </td>
 
                                 <!-- Rate -->
                                 <td>
-                                    <input class="form-control" type="number" name="invoice.Services[{{$index}}].Rate" ng-model="service.Rate" placeholder="0.00" min="0" />
+                                    <input class="form-control" type="number" name="invoice.Services[{{$index}}].Rate" ng-model="service.Rate" placeholder="0.00" min="0" required>
                                 </td>
 
                                 <!--Subtotal-->
