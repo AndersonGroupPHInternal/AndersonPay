@@ -6,7 +6,7 @@ namespace AndersonPayModel
 {
     public class TypeOfService : Base
     {
-        public decimal Availed => Services.Sum(a => a.Quantity);
+        //public decimal Availed => Services.Sum(a => a.Quantity);
 
         public int TypeOfServiceId { get; set; }
 
