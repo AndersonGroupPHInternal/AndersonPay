@@ -34,6 +34,7 @@
         vm.Balance = Balance;
         vm.TotalBalance = TotalBalance;
         vm.AmountDue = AmountDue;
+        vm.Amount_Due = Amount_Due;
         vm.Change = Change;
         vm.TotalChange = TotalChange;
         vm.CheckboxToggled = CheckboxToggled;
@@ -115,6 +116,7 @@
                     });
                 });
         }
+
         function ReadForInvoice() {
             InvoiceService.ReadId(vm.Client.ClientId)
                 .then(function (response) {
@@ -163,6 +165,35 @@
                 return 0;
         }
 
+        //AMOUNT DUE
+        function AmountD(invoice) {
+            if (invoice.Selected == true) {
+                if (invoice.AmountDue != undefined)
+                    return invoice.AmountDue;
+                else
+                    return 0;
+            }
+            else
+                return 0;
+        }
+
+        function AmountDue(invoiceAmountDue, invoice) { //table
+            var amountDue = 0;
+            angular.forEach(vm.Invoices, function (invoice) {
+                amountDue += AmountD(invoice);
+            });
+            if (!amountDue)
+                amountDue;
+            return amountDue.toFixed(2);
+        }
+
+        function Amount_Due(invoiceAmountDue, invoice) { //table
+            var amountDue = 0;
+            amountDue = invoiceAmountDue;
+            return amountDue;
+        }
+
+        //AMOUNT RECEIVED
         function TotalAmountReceived(invoice) {
             var total = 0;
             angular.forEach(vm.Invoices, function (invoice) {
@@ -172,6 +203,8 @@
                 total = 0;
             return total;
         }
+
+        //BALANCE
         function Balance(invoiceAmountDue, invoice) { //table
             var balance = 0;
             balance = invoiceAmountDue - Payment(invoice);
@@ -182,25 +215,17 @@
         }
 
         function TotalBalance() { 
-            var totalBalance = 0;
-            return totalBalance;
+            var balance = 0;
+            angular.forEach(vm.Invoices, function (invoiceAmountDue, invoice) {
+                balance = AmountDue(invoiceAmountDue, invoice) - TotalAmountReceived(invoice);
+            });
+            if (balance < 0) {
+                balance = 0;
+            }
+            return balance;
         }
 
-        function AmountDue(invoiceAmountDue, invoice) { //table
-            var amountDue = 0;
-            amountDue = invoiceAmountDue;
-            return amountDue;
-        }
-
-        function TotalAmountDue(invoice) {
-            //var TotalAD = 0;
-            //angular.forEach(vm.Invoices, function(invoice) {
-              //  TotalAD += TotalAmountDue(invoice);
-            //});
-            //if (!TotalAD)
-              //  TotalAD = 0;
-        }
-        
+        //CHANGE
         function Change(invoiceAmountDue, invoice) { //table
             var change = 0;
             change = invoiceAmountDue - Payment(invoice);
@@ -214,11 +239,14 @@
         }
 
         function TotalChange(invoiceAmountDue, invoice) {
-            var totalChange = 0;
+            var change = 0;
             angular.forEach(vm.Invoices, function (invoiceAmountDue, invoice) {
-                //totalChange += Change(invoiceAmountDue, invoice);
+                change = TotalAmountReceived(invoice) - AmountDue(invoiceAmountDue, invoice);
             });
-            return totalChange;
+            if (change < 0)
+                change = 0;
+
+            return change.toFixed(2);
         }
 
         function ToggleAll() {

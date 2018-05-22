@@ -42,6 +42,10 @@ audio:not([controls]) {
 template {
   display: none;
 }
+.sidebar a.current {
+    background: #a94442;
+    color: white;
+}
 a {
   background-color: transparent;
 }

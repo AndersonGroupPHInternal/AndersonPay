@@ -8,9 +8,14 @@
             <div class="form-group" align="right" style="padding-top:50px;">
                 <input type="hidden" readonly="readonly" class="form-control" id="CreatedDate" name="CreatedDate" placeholder="CreatedDate" value="@Model.CreatedDate">
                 <input type="hidden" readonly="readonly" class="form-control" id="DueDate" name="DueDate" placeholder="DueDate">
-                <label for="SINo">No: </label>
-                <label id="SINo"></label>
-                <input type="text" class="form-group" id="SINoSI No:" name="invoice.SINo" value="{{model.SINo}}" required>
+
+                <div class="col-md-8 control-label align-left" style="padding-top: 10px;">
+                    <label for="SINo">No: </label>
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control input-sm" id="ex1" name="invoice.SINo" value="{{model.SINo}}" required>
+                </div>
+
                 <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
             </div>
         </div>
@@ -23,7 +28,7 @@
                     <input type="hidden" class="form-control" id="TIN" name="invoice.TIN" value="{{model.CompanyBranch.TIN}}">
                 </div>
                 <div class="dropBranch">
-                    <label for="Address" id="Address">Address: {{model.CompanyBranch.Address}}</label>
+                    <label for="Address" id="Address">Address: {{model.CompanyBranch.Address.split('%')[0]}}<br/>{{model.CompanyBranch.Address.split('%')[1]}}<br />{{model.CompanyBranch.Address.split('%')[2]}}</label>
                     <input type="hidden" class="form-control" id="Address" name="invoice.Address" value="{{model.CompanyBranch.Address}}">
                     <ui-select ng-model="model.CompanyBranch">
                         <ui-select-match placeholder="Select Branch">
@@ -36,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="BillingPeriod">Billing Period: </label>
-                    <input type="date" class="form-control" id="invoice.BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="@Model.BillingPeriod">
+                    <input type="date" class="form-control" id="invoice.BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="@Model.BillingPeriod" required>
                 </div>
             </div>
             <br>
@@ -60,7 +65,7 @@
                     <input type="hidden" class="form-control" id="invoice.TaxTypes" readonly="readonly" name="invoice.TaxTypeId" value="{{model.Client.TaxTypeId}}">
                     <input type="hidden" class="form-control" id="invoice.Tax" readonly="readonly" name="invoice.Tax" value="{{model.Client.WithHoldingTax}}">
                 </div>
-                <input type="hidden" class="form-control" id="invoice.ClientId" readonly="readonly" name="invoice.ClientId" value="{{model.Client.ClientId}}">
+                <input type="hidden" class="form-control" id="invoice.ClientId" readonly="readonly" name="invoice.ClientId" value="{{model.Client.ClientId}}" required>
             </div>
             @*Computation ng Subtotal*@
             <div class="form-group-material">
