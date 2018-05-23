@@ -16,7 +16,7 @@ namespace AndersonPayModel
         public decimal Tax { get; set; }
 
         public string Address { get; set; }
-        public string CreatedDateNow => CreatedDate.ToString(); //There is a dll that will solve MVC json problems
+        public string CreatedDateNow => CreatedDate?.ToString("dd MMMM yyyy") ?? string.Empty; //There is a dll that will solve MVC json problems
         public int CurrencyId { get; set; }
         public string Name { get; set; }
         public string Recipients { get; set; }

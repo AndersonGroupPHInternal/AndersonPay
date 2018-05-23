@@ -22,6 +22,17 @@
         }
         }
         </script>*@
+
+    <script>
+            $(function () {
+                $('a').each(function () {
+                    if ($(this).prop('href') == window.location.href) {
+                        $(this).addClass('current');
+                    }
+                });
+            });
+    </script>
+
 </head>
 
 <body class="has-detached-right">
@@ -74,7 +85,7 @@
                             <ul class="navigation">
                                 <!-- <li class="divider"></li> -->
                                 <li><a href="#" data-toggle="modal" data-target="#modal_form_vertical"><i class="icon-wrench2"></i> <span>Account settings</span></a></li>
-                                <li><a href="/AndersonPay/Maintenance"><i class="icon-switch2"></i> <span>Logout</span></a></li>
+                                @*<li><a href="/AndersonPay/Maintenance"><i class="icon-switch2"></i> <span>Logout</span></a></li>*@
                             </ul>
                         </div>
                     </div>
@@ -88,8 +99,8 @@
                                 @*<li><a href="/AndersonPay/Index" onclick="myFunction()"><span class="glyphicon glyphicon-tasks" style="margin-right:12px;"></span> <span>Dashboard </span></a></li>*@
                                 <li><a href="/Dashboard/Index"><span class="glyphicon glyphicon-tasks" style="margin-right:12px;"></span> <span>Dashboard </span></a></li>
                                 <li><a href="/Invoice/Index"><i class="icon-file-plus2"></i> <span>Create Invoice</span></a></li>
-                                <li><a href="/Client/Index"><i class="icon-list"></i> <span>List of Clients</span></a></li>
                                 <li><a href="/Payment/Index"><i class="icon-list"></i> <span>Receive Payment</span></a></li>
+                                <li><a href="/Client/Index"><i class="icon-list"></i> <span>List of Clients</span></a></li>
                                 @*<li><a href="/AddJobs/Index"><i class="icon-list"></i> <span>List of Jobs</span></a></li>*@
                                 <li><a href="/TypeOfService/Index"><i class="icon-list2"></i> <span>List of Services</span></a></li>
                                 <li>

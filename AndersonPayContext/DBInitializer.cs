@@ -60,7 +60,7 @@ namespace AndersonPayContext
                 new ECompanyAddress
                 {
                     CompanyBranch = "WYNSUM",
-                    Address = "11/F Wynsum Corporate Plaza, #22 F. Ortigas Jr. Road Ortigas Center, Pasig City Philippines ",
+                    Address = "11/F Wynsum Corporate Plaza, %#22 F. Ortigas Jr. Road Ortigas Center, %Pasig City, Philippines ",
                     SINo = "WNSM-",
                     TIN = "009-490-545-001"
                 },
@@ -68,7 +68,7 @@ namespace AndersonPayContext
                 new ECompanyAddress
                 {
                     CompanyBranch = "CYBERGATE",
-                    Address = "20/F Robinsons Cybergate Tower 3, Pioneer Street, Mandaluyong City, Pioneer St, Mandaluyong, Metro Manila",
+                    Address = "20/F Robinsons Cybergate Tower 3, %Pioneer Street %Mandaluyong City, Philippines",
                     SINo = "CG3-",
                     TIN = "000"
                 },
@@ -76,7 +76,7 @@ namespace AndersonPayContext
                 new ECompanyAddress
                 {
                     CompanyBranch = "ECOTOWER",
-                    Address = "Ecotower Building Unit 1504, 32nd Street corner 9th avenue Bonifacio Global City, Taguig City Philippines",
+                    Address = "Ecotower Building Unit 1504, %32nd Street corner 9th Avenue Bonifacio Global City, %Taguig City, Philippines",
                     SINo =  "ECT-",
                     TIN = "009-490-545-00000"
                 }
