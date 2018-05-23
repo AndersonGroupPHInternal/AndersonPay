@@ -12,6 +12,7 @@
         <div style="width:100%; display: table;position: relative;">
             <div style="width:300px; float:left;">
                 <div class="dropClient">
+                    <label for="ClientName">Select Client </label>
                     <ui-select ng-model="model.Client" ng-change="model.ClientChange()">
                         <ui-select-match placeholder="Select Client">
                             <label ng-bind="$select.selected.Name"></label>
@@ -38,88 +39,90 @@
                     }
                 </script>
                 @**<label for="DueDate">Due Date</label>
-                <input type="date" class="form-control" id="payment.DueDate" name="payment.DueDate" placeholder="Due Date" value="@Model.DueDate">*@
+            <input type="date" class="form-control" id="payment.DueDate" name="payment.DueDate" placeholder="Due Date" value="@Model.DueDate">*@
             </div>
-            
-            <div align="right"  >
-               <div  style="width: 57.50%; float:left; top:-30%;">
-                <label for="BankReference">Bank Reference:</label><br>
-                </div>
-                   <input type="text" ;/>
-                <label for="ORno">OR No.</label>
-                <input type="text" />
-            </div>
-         
-        </div>
-        <br>
-        <table class="table table-bordered" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
-            <thead>
-                <tr>
-                    <th width="5%"><input type="checkbox" checked="checked" ng-click="model.ToggleAll()" ng-model="model.isAllSelected" /></th>
-                    <th width="20%"><center>SI No.</center></th>
-                    <th width="20%"><center>Payment</center></th>
-                    <th width="20%"><center>Discount</center></th>
-                    <th width="20%"><center>Amount Due</center></th>
-                    <th width="20%"><center>Balance</center></th>    
-                    <th width="20%"><center>Change</center></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr style="border:none" ng-repeat="invoice in model.Invoices track by $index">
-                    <td>
-                        <input type="checkbox" class="form-control" ng-model="invoice.Selected" ng-change="model.CheckboxToggled()">
-                    </td>
 
-                    <td>
-                        <input type="text" class="form-control" readonly="readonly" value="{{invoice.SINo}}{{invoice.InvoiceId}}" placeholder="Sales Invoice No.">
-                    </td>
-                    
-                    <td>
-                        <input class="form-control" type="number" name="invoice.Invoices[{{$index}}].Payments" ng-model="invoice.Payment" placeholder="0.00" min="0">
-                    </td>
-                   
-                    <td>
-                        <input type="number" class="form-control" autocomplete="off" id="Discount" name="invoice.Invoices[{{$index}}].Discount" ng-model="invoice.Discount" placeholder="0.00" min="0">
-                    </td>
-                 
-                    <td>
-                        <span ng-bind="model.Amount_Due(invoice.AmountDue, invoice)| number:2"></span>
-                    </td>
-                   
-                    <td>
-                        @*<input type="text" readonly="readonly" class="form-control" autocomplete="off" id="payment.Balance" name="payment.Balance" placeholder="0" value="{{model.Balance(invoice.AmountDue, invoice)}}">*@
-                        <span ng-bind="model.Balance(invoice.AmountDue, invoice)| number:2"></span>
-                    </td>
-                  
-                    <td>
-                        <span ng-bind="model.Change(invoice.AmountDue, invoice)| number:2"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div class="form-group" style="text-align:left;"ng-bind="invoice in model.Invoices track by $index">
-            <label for="AmountDue">Total Amount Due: <span ng-bind="model.AmountDue(invoice.AmountDue, invoice)| number:2"></span></label>
-            <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountDue" value="{{model.AmountDue}}">
+            <div style="width: 45%; float:right; margin-right: 2%">
+                <div class="form-group row" align="right">
+                    <label for="BankReference" class="col-2 col-form-label" style="margin-right: 5%">Bank Reference: </label>
+                    <input class="form-control input-sm" type="text" style="float: right; width: 35%;" />
+                </div>
+
+                <div class="form-group row" align="right">
+                    <label for="ORno" class="col-2 col-form-label"  style="margin-right: 5%">OR No. : </label>
+                    <input class="form-control input-sm" type="text" style="float: right; width: 35%;" />
+                </div>
+            </div>
+            </div>
+            <br>
+            <table class="table table-bordered" style="border-style:solid; font-size: 12px; font-family:Arial, Helvetica, sans-serif;">
+                <thead>
+                    <tr>
+                        <th width="5%"><input type="checkbox" checked="checked" ng-click="model.ToggleAll()" ng-model="model.isAllSelected" /></th>
+                        <th width="20%"><center>SI No.</center></th>
+                        <th width="20%"><center>Payment</center></th>
+                        <th width="20%"><center>Discount</center></th>
+                        <th width="20%"><center>Amount Due</center></th>
+                        <th width="20%"><center>Balance</center></th>
+                        <th width="20%"><center>Change</center></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border:none" ng-repeat="invoice in model.Invoices track by $index">
+                        <td>
+                            <input type="checkbox" class="form-control" ng-model="invoice.Selected" ng-change="model.CheckboxToggled()">
+                        </td>
+
+                        <td>
+                            <input type="text" class="form-control" readonly="readonly" value="{{invoice.SINo}}{{invoice.InvoiceId}}" placeholder="Sales Invoice No.">
+                        </td>
+
+                        <td>
+                            <input class="form-control" type="number" name="invoice.Invoices[{{$index}}].Payments" ng-model="invoice.Payment" placeholder="0.00" min="0">
+                        </td>
+
+                        <td>
+                            <input type="number" class="form-control" autocomplete="off" id="Discount" name="invoice.Invoices[{{$index}}].Discount" ng-model="invoice.Discount" placeholder="0.00" min="0">
+                        </td>
+
+                        <td>
+                            <span ng-bind="model.Amount_Due(invoice.AmountDue, invoice)| number:2"></span>
+                        </td>
+
+                        <td>
+                            @*<input type="text" readonly="readonly" class="form-control" autocomplete="off" id="payment.Balance" name="payment.Balance" placeholder="0" value="{{model.Balance(invoice.AmountDue, invoice)}}">*@
+                            <span ng-bind="model.Balance(invoice.AmountDue, invoice)| number:2"></span>
+                        </td>
+
+                        <td>
+                            <span ng-bind="model.Change(invoice.AmountDue, invoice)| number:2"></span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="form-group" style="text-align:left;" ng-bind="invoice in model.Invoices track by $index">
+                <label for="AmountDue">Total Amount Due: <span ng-bind="model.AmountDue(invoice.AmountDue, invoice)| number:2"></span></label>
+                <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountDue" value="{{model.AmountDue}}">
+            </div>
+
+            <div class="form-group" ng-bind="invoice in model.Invoices track by $index">
+                <label for="TotalAmountReceived">Total Amount Received: <span ng-bind="model.TotalAmountReceived(invoice)| number:2"></span></label>
+                <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountReceived" value="{{model.TotalAmountReceived(invoice)}}">
+            </div>
+
+            <div class="form-group" ng-bind="invoice in model.Invoices track by $index">
+                <label for="TotalChange">Total Change:  <span ng-bind="model.TotalChange(invoice.AmountDue, invoice)| number:2"></span></label>
+                <input type="hidden" class="form-control" id="PaymentId" name="payment.TotalChange" value="{{model.TotalChange(invoice)}}">
+            </div>
+
+            <div class="form-group" ng-bind="invoice in model.Invoices track by $index">
+                <label for="TotalBalance">Total Balance:  <span ng-bind="model.TotalBalance(invoice.AmountDue, invoice)| number:2"></span></label>
+                <input type="hidden" class="form-control" id="PaymentId" name="payment.Balance" value="{{model.TotalBalance}}">
+            </div>
+
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit" />
+            </div>
         </div>
-        
-        <div class="form-group"ng-bind="invoice in model.Invoices track by $index">
-            <label for="TotalAmountReceived">Total Amount Received: <span ng-bind="model.TotalAmountReceived(invoice)| number:2"></span></label>
-            <input type="hidden" class="form-control" id="PaymentId" name="payment.AmountReceived" value="{{model.TotalAmountReceived(invoice)}}">
-        </div>
-        
-        <div class="form-group"ng-bind="invoice in model.Invoices track by $index">
-            <label for="TotalChange">Total Change:  <span ng-bind="model.TotalChange(invoice.AmountDue, invoice)| number:2"></span></label>
-            <input type="hidden" class="form-control" id="PaymentId" name="payment.TotalChange" value="{{model.TotalChange(invoice)}}">
-        </div>
-        
-        <div class="form-group"ng-bind="invoice in model.Invoices track by $index">
-            <label for="TotalBalance">Total Balance:  <span ng-bind="model.TotalBalance(invoice.AmountDue, invoice)| number:2"></span></label>
-            <input type="hidden" class="form-control" id="PaymentId" name="payment.Balance" value="{{model.TotalBalance}}">
-        </div>
-        
-        <div class="form-group"> 
-            <input type="submit" class="btn btn-primary" value="Submit" />
-        </div>
-    </div>
 </div>
