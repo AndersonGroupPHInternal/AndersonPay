@@ -20,23 +20,22 @@
         @{
             string[] brAddress = (Model.Address).Split('%');
         }
-
-        <div style="width:100%; float:left; font-family:Calibri">
+        <div style="width:100%; float:left; font-family:Calibri; margin-top: 20px;">
             <table style="background-color:white; width:100%;">
                 <tr>
                     <th style="background-color:white; color:black; width:50%">
-                        <h5 style="font-size :18px; text-align:left;"><b>ANDERSON GROUP BPO INC.</b></h5>
+                        <h5 style="font-size :18px; text-align:left; padding:0px; margin:0px;"><b>ANDERSON GROUP BPO INC.</b></h5>
                     </th>
-                    <th style="background-color:white; color:black; width:50%">
-                        <h5 style="font-size :18px; text-align:left"><b>@Html.DisplayFor(model => model.Client.Name).ToString().ToUpper()</b></h5>
+                    <th style="background-color:white; color:black; width:50%;">
+                        <h5 style="font-size :18px; text-align:left; padding:0px; margin:0px"><b>@Html.DisplayFor(model => model.Client.Name).ToString().ToUpper()</b></h5>
                     </th>
                 </tr>
                 <tr>
-                    <td>
-                        <h5 style="font-size :18px; ">@brAddress[0] <br /> @brAddress[1] <br /> @brAddress[2]</h5>
+                    <td style="background-color:white; color:black; width:50%;">
+                        <h5 style="font-size :18px; text-align:left; padding:0px; margin:0px;">@brAddress[0] <br /> @brAddress[1] <br /> @brAddress[2]</h5>
                     </td>
-                    <td>
-                        <h5 style="font-size :18px; ">@Model.Client.Address</h5>
+                    <td style="background-color:white; color:black; width:50%;">
+                        <h5 style="font-size :18px; text-align:left; padding:0px; margin:0px;">@Model.Client.Address</h5>
                     </td>
                 </tr>
                 <tr>
