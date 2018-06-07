@@ -13,7 +13,7 @@
                     <label for="SINo">No: </label>
                 </div>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control input-sm" id="ex1" name="invoice.SINo" value="{{model.SINo}}" required>
+                    <input type="text" class="form-control input-sm" id="ex1" name="invoice.SINo" value="{{model.SINo}}@Model.SINo" required>
                 </div>
 
                 <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
@@ -41,7 +41,7 @@
                 </div>
                 <div class="form-group">
                     <label for="BillingPeriod">Billing Period: </label>
-                    <input type="date" class="form-control" id="BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="@Model.BillingPeriod" required>
+                    <input type="date" class="form-control" id="BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="{{model.BillingPeriod}}@Model.BillingPeriod" required>
                   
                     <script>
                         if (document.getElementById("BillingPeriod").value == false)
