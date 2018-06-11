@@ -27,6 +27,7 @@ namespace AndersonPayModel
         public DateTime BillingPeriod { get; set; }
         public string BillingPeriodNow => BillingPeriod.ToString("dd MMMM yyyy") ?? string.Empty;
         public string DueDateNow => DueDate.ToString("dd MMMM yyyy") ?? string.Empty;
+
         public Client Client { get; set; }
 
         public virtual List<Service> Services { get; set; }
