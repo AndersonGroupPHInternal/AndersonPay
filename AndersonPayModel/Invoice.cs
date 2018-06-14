@@ -26,6 +26,7 @@ namespace AndersonPayModel
         public DateTime DueDate => CreatedDate.Value.AddDays(7);
         public DateTime BillingPeriod { get; set; }
         public string BillingPeriodNow => BillingPeriod.ToString("dd MMMM yyyy") ?? string.Empty;
+        public string BillingPeriodDate => BillingPeriod.Date.ToString("yyyy-MM-dd") ?? string.Empty;
         public string DueDateNow => DueDate.ToString("dd MMMM yyyy") ?? string.Empty;
 
         public Client Client { get; set; }
