@@ -11,6 +11,8 @@ namespace AndersonPayModel
 
         public DateTime DateOfPayment { get; set; }
         public string DateOfPaymentNow => DateOfPayment.ToString();
+        public string DateOfPaymentDate => DateOfPayment.Date.ToString("yyyy-MM-dd") ?? string.Empty;
+        public string DateOfPaymentTime => DateOfPayment.TimeOfDay.ToString();
 
         //public DateTime DueDate { get; set; }
         //public string DueDateNow => DueDate.ToString();

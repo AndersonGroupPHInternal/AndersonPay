@@ -13,10 +13,10 @@
                     <label for="SINo">No: </label>
                 </div>
                 <div class="col-xs-2">
-                    <input type="text" class="form-control input-sm" id="ex1" name="invoice.SINo" value="{{model.SINo}}@Model.SINo" required>
+                    <input type="text" class="form-control input-sm" id="ex1" name="invoice.SINo" value="@Model.SINo" required>
                 </div>
 
-                <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="{{model.invoice.InvoiceId}}@Model.InvoiceId">
+                <input type="hidden" class="form-control" id="InvoiceId" name="invoice.InvoiceId" value="@Model.InvoiceId">
             </div>
         </div>
 
@@ -41,7 +41,15 @@
                 </div>
                 <div class="form-group">
                     <label for="BillingPeriod">Billing Period: </label>
-                    <input type="date" class="form-control" id="BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="{{model.BillingPeriod}}@Model.BillingPeriodDate" required pattern="YYYY-MM-DD">
+                    <input type="date" class="form-control" id="BillingPeriod" name="invoice.BillingPeriod" placeholder="Billing Period" value="@Model.BillingPeriodDate" required pattern="YYYY-MM-DD">
+                    <script>
+                        if (document.getElementById("BillingPeriod").value == "0001-01-01")
+                    {
+                        var date = new Date();
+                        var today = moment(date).format('YYYY-MM-DD');
+                        document.getElementById("BillingPeriod").value = today;
+                    }
+                    </script>
                 </div>
             </div>
             <br>
